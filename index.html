@@ -301,7 +301,7 @@ function loadGoogleSheet(id){
 }
 const SHEET_ID=DEFAULT_SHEET_ID;
 const normalize=s=>String(s||"").trim().toLowerCase().replace(/\s+/g," ");
-function setSyncStatus(text,ok=false){const el=document.getElementById("syncStatus");el.textContent=text;el.style.color=ok?"#76d69b":"#ffad67"}
+function setSyncStatus(text,ok=false){const el=document.getElementById("syncStatus");el.textContent=text;el.style.color=ok?"#76d69b":"#ffad67"} 
 function refreshFilamentPrices(){
   const button=document.getElementById("refreshBtn");button.disabled=true;button.textContent="در حال دریافت…";setSyncStatus("در حال دریافت قیمت‌های روز فیلامنت از Google Sheets…");
   const old=window.google&&google.visualization&&google.visualization.Query&&google.visualization.Query.setResponse;
