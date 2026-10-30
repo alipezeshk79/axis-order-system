@@ -221,7 +221,108 @@ body.light #accountingWorkspace .portfolio-stats>div.debt b{color:#a84b00!import
 @media(max-width:650px){#accountingWorkspace .portfolio-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}}
 @media(max-width:360px){#accountingWorkspace .portfolio-stats{grid-template-columns:1fr!important}}
 
-</style></head><body><main class="dashboard" id="dashboard"><div class="dashboard-shell"><header class="dashboard-head"><div class="dashboard-logo-wrap"><div class="dashboard-logo"><span class="dashboard-version">v.1.2.98</span></div><button class="dashboard-theme-btn" id="themeToggle" onclick="toggleTheme()" title="حالت روز" aria-label="تغییر حالت روز و شب">☀</button><button class="dashboard-theme-btn" onclick="manualBackup()" title="ذخیره دستی بکاپ">⇧</button><button class="dashboard-theme-btn" onclick="manualRestore()" title="بازیابی دستی اطلاعات">↺</button><button class="dashboard-theme-btn" onclick="showAccountSettings()" title="حساب کاربری" style="display:grid;place-items:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-2px"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.7-5.2 7-5.2s6.2 1.6 7 5.2"/></svg></button></div><div class="dash-act-stack" id="dashboardActivityStack"></div><div id="dashboardOthersLive"></div><div class="dashboard-clock"><div id="dashboardTime" class="dashboard-time">00:00</div><div id="dashboardDate" class="dashboard-date">—</div></div></header><section><div class="dashboard-grid"><button class="dashboard-tile primary" onclick="showOrderWorkspace()"><span class="tile-icon">＋</span><b>سفارش جدید</b><small>ثبت مشتری، انتخاب محصولات، محاسبه قیمت و آماده‌سازی پیش‌فاکتور</small></button><button class="dashboard-tile" onclick="showSocialOrder()"><span class="tile-icon">✦</span><b>سفارش‌های سوشال مدیا</b><small>ثبت مستقل سفارش‌های تلگرام، اینستاگرام و متفرقه</small></button><button class="dashboard-tile" onclick="showManagement()"><span class="tile-icon">▤</span><b>مدیریت سفارش‌ها</b><small>مشاهده، پیگیری و دریافت خروجی سفارش‌های ثبت‌شده</small></button><button class="dashboard-tile" onclick="showCustomers()"><span class="tile-icon">👥</span><b>مشتریان</b><small>فهرست نام، تماس، آدرس و سوابق سفارش مشتریان</small></button><button class="dashboard-tile" onclick="showAccounting()"><span class="tile-icon">◈</span><b>حسابداری</b><small>گزارش تراکنش‌ها، دریافت‌ها و پرتفوی مالی</small></button><button class="dashboard-tile" onclick="showProductManagement()"><span class="tile-icon">⚙</span><b>مدیریت محصولات و مواد اولیه</b><small>قیمت فیلامنت، مواد اولیه، حلقه و محصول‌ها</small></button><div class="dashboard-tile disabled"><span class="tile-icon">◫</span><b>گزارش‌ها</b><small>به‌زودی: گزارش فروش، تولید و مصرف مواد</small></div></div></section></div></main><main class="management workspace" id="managementWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>مدیریت سفارش‌ها</h1><p>سفارش‌های ثبت‌شده در این مرورگر</p></div><button class="dark" onclick="downloadOrdersCsv()">⇩ خروجی Excel (CSV)</button></div><section class="card"><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>شماره سفارش</th><th>تاریخ</th><th>مشتری</th><th>تماس</th><th>تعداد آیتم</th><th>روند چاپ</th><th>زمان باقی‌مانده</th><th>وضعیت سفارش</th><th>عملیات</th></tr></thead><tbody id="managementRows"></tbody></table></div></section><section class="card import-panel" id="progressPanel"><h2 id="progressTitle">روند تولید سفارش</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>کد</th><th>محصول</th><th>تعداد سفارش</th><th>تعداد چاپ‌شده</th><th>باقی‌مانده</th></tr></thead><tbody id="progressRows"></tbody></table></div><div style="margin-top:14px"><button class="dark" style="background:var(--orange);color:#171b22" onclick="saveOrderProgress()">ذخیره روند چاپ</button></div></section></main><main class="management workspace" id="customersWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>مشتریان</h1><p>فهرست مشتریان ثبت‌شده از سفارش‌ها</p></div><button class="dark iconbtn" id="customerAddToggle" onclick="toggleCustomerAddPanel()" title="افزودن مشتری" aria-label="افزودن مشتری" aria-expanded="false">+</button></div><div id="customerAddPanel" class="import-panel"><section class="card"><h2>افزودن مشتری</h2><div class="form"><div><label class="title">نام مشتری</label><input id="newCustomerName" placeholder="نام و نام خانوادگی"></div><div><label class="title">شماره تماس</label><input id="newCustomerPhone" placeholder="۰۹۱۲..."></div><div class="full"><label class="title">آدرس</label><textarea id="newCustomerAddress" rows="2" placeholder="آدرس کامل مشتری"></textarea></div><div class="full"><button class="dark" onclick="addCustomer()" style="background:var(--orange);color:#171b22">＋ ثبت مشتری</button></div></div></section></div><section class="card"><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>نام مشتری</th><th>شماره تماس</th><th>آدرس</th><th>تعداد سفارش</th><th>آخرین سفارش</th><th>مجموع خرید</th><th>بدهی فعلی</th><th>عملیات</th></tr></thead><tbody id="customerRows"></tbody></table></div></section></main><main class="management workspace" id="orderPortfolioWorkspace"><div class="management-head"><button class="dark" onclick="showManagement()">← مدیریت سفارش‌ها</button><div><h1 id="orderPortfolioTitle">پرتفوی سفارش</h1><p id="orderPortfolioCustomer" class="customer-profile-link" onclick="openPortfolioCustomer()"></p></div><div class="portfolio-doc-actions"><button title="افزودن محصول به سفارش" onclick="togglePortfolioAddProduct()">＋</button><button title="مشاهده پیش‌فاکتور" onclick="openPortfolioDocument('invoice')">▧</button><button title="مشاهده لیست اپراتور" onclick="openPortfolioDocument('operator')">▤</button></div></div><section class="portfolio-stats"><div><small>مبلغ کل سفارش</small><b id="orderPortfolioTotal">۰ تومان</b></div><div><small>تعداد کل محصولات</small><b id="orderPortfolioQty">۰</b></div><div><small>هزینه مواد</small><b id="orderPortfolioMaterial">۰ تومان</b></div><div><small>سود خالص</small><b id="orderPortfolioProfit">۰ تومان</b></div><div class="debt"><small>وضعیت تولید</small><b id="orderPortfolioProgress">۰ / ۰</b></div><div><small>زمان کل تولید</small><b id="orderPortfolioTime">۰ دقیقه</b></div><div><small>تعداد باقی‌مانده</small><b id="orderPortfolioRemaining">۰</b></div></section><section class="card import-panel" id="portfolioAddProductPanel"><h2>افزودن محصول به سفارش</h2><div class="form"><div><label class="title">محصول</label><select id="portfolioAddProductSelect"></select></div><div><label class="title">تعداد</label><input id="portfolioAddQty" type="number" min="1" value="1"></div><div><label class="title">قیمت واحد</label><input id="portfolioAddPrice" inputmode="numeric" placeholder="قیمت تکی محصول"></div><div style="align-self:end"><button class="dark" onclick="addProductToActiveOrder()" style="background:var(--orange);color:#171b22">＋ افزودن</button></div></div></section><section class="card"><h2>وضعیت محصولات سفارش</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>کد</th><th>محصول</th><th>تعداد سفارش</th><th>چاپ‌شده</th><th>باقی‌مانده</th><th>زمان کل</th><th>توضیحات</th><th>عملیات</th></tr></thead><tbody id="orderPortfolioRows"></tbody></table></div><div style="margin-top:14px"><button class="dark" style="background:var(--orange);color:#171b22" onclick="saveOrderPortfolioProgress()">ذخیره تعداد چاپ‌شده</button></div></section><section class="card"><h2>مرحله سفارش</h2><div class="stage-box"><b id="orderStageLabel">ثبت شده</b><p id="orderStageHint"></p><button class="dark" id="orderStageButton" onclick="advanceOrderStage()"></button></div></section></main><main class="management workspace" id="portfolioWorkspace"><div class="management-head"><button class="dark" onclick="showCustomers()">← مشتریان</button><div><h1 id="portfolioName">پرونده مشتری</h1><p id="portfolioContact"></p></div><button class="dark" onclick="openCustomerStatementModal()" title="برگه صورت‌حساب و تاریخچه کامل مشتری" style="margin-inline-start:auto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-2px"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg> صورت‌حساب / برگه تاریخچه</button></div><section class="portfolio-stats"><div><small>مجموع سفارش‌ها</small><b id="portfolioOrdersTotal">۰ تومان</b></div><div><small>مجموع پرداختی‌ها</small><b id="portfolioPaymentsTotal">۰ تومان</b></div><div><small>بدهی گذشته</small><b id="portfolioOpeningDebt">۰ تومان</b></div><div class="debt"><small>مانده بدهی</small><b id="portfolioDebt">۰ تومان</b></div></section><section class="card"><h2>ثبت پرداختی جدید</h2><div class="form"><div><label class="title">مبلغ پرداختی (تومان)</label><input id="paymentAmount" inputmode="numeric" placeholder="مثلاً ۵۰۰۰۰۰"></div><div><label class="title">تاریخ پرداخت</label><input id="paymentDate" placeholder="۱۴۰۵/۰۱/۲۱"></div><div class="full"><label class="title">توضیحات</label><textarea id="paymentNote" rows="2" placeholder="شماره کارت، روش پرداخت یا توضیحات"></textarea></div><div class="full"><button class="dark" onclick="addPayment()" style="background:var(--orange);color:#171b22">ثبت پرداختی</button></div></div></section><section class="card"><h2>وضعیت سفارش‌ها</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>فاکتور</th><th>تاریخ</th><th>مبلغ</th><th>روند چاپ</th></tr></thead><tbody id="portfolioOrders"></tbody></table></div></section><section class="card"><h2>تاریخچه پرداختی‌ها</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>تاریخ</th><th>مبلغ</th><th>توضیحات</th></tr></thead><tbody id="portfolioPayments"></tbody></table></div></section></main><main class="management workspace" id="accountingWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>حسابداری</h1><p>پرتفوی مالی و گزارش تراکنش‌ها</p></div></div><div class="accounting-range" aria-label="بازه گزارش"><button onclick="setAccountingRange('1W')">1W</button><button onclick="setAccountingRange('1M')">1M</button><button onclick="setAccountingRange('1Y')">1Y</button><button class="active" onclick="setAccountingRange('ALL')">ALL</button></div><section class="portfolio-stats"><div><small>فروش محصولات</small><b id="accSales">۰ تومان</b></div><div><small>هزینه پست قابل‌دریافت</small><b id="accShipping">۰ تومان</b></div><div><small>جمع قابل‌دریافت</small><b id="accReceivable">۰ تومان</b></div><div><small>پرداخت‌های ثبت‌شده</small><b id="accPayments">۰ تومان</b></div><div class="debt"><small>مانده بدهی کل مشتریان</small><b id="accDebt">۰ تومان</b></div></section><p class="info" style="max-width:1150px;margin:0 auto 12px">فروش، پست و پرداخت‌ها مربوط به بازهٔ انتخابی‌اند؛ مانده بدهی و پرتفوی مشتریان همیشه کل تاریخچه و بدهی‌های پیشین را نشان می‌دهند. پست تا زمان پرداخت، بدهی است و فروش یا پرداخت‌شده محسوب نمی‌شود.</p><p id="accCreditHint" class="info" style="display:none;max-width:1150px;margin:0 auto 12px"></p><section class="card"><h2>تراکنش‌ها</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>تاریخ</th><th>نوع تراکنش</th><th>مشتری</th><th>شماره سفارش</th><th>مبلغ</th><th>توضیحات</th><th>عملیات</th></tr></thead><tbody id="accountingRows"></tbody></table></div></section><section class="card"><h2>پرتفوی مشتریان</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>مشتری</th><th>کل مبلغ و بدهی پیشین</th><th>کل پرداخت‌ها</th><th>بدهی جاری</th><th>بستانکاری</th></tr></thead><tbody id="accountingPortfolioRows"></tbody></table></div></section></main><main class="management workspace" id="productCategoryWorkspace"><div class="management-head"><button class="dark" onclick="backToProductManager()">← مدیریت محصولات</button><div><h1 id="productCategoryPageTitle">محصولات</h1><p>مدیریت محصولات دسته انتخاب‌شده</p></div></div><div id="productDetailMount"></div></main><main class="management workspace" id="productNewWorkspace"><div class="management-head"><button class="dark" onclick="backToProductManager()">← مدیریت محصولات</button><div><h1 id="newProductPageTitle">افزودن محصول جدید</h1><p>ثبت محصول و قیمت‌گذاری خودکار</p></div></div><div id="productNewMount"></div></main><main class="management workspace" id="socialWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>سفارش‌های سوشال مدیا</h1><p>ثبت سفارشهای مستقل تلگرام، اینستاگرام و متفرقه. مشتریان پس از ثبت سفارش در همین صفحه ذخیره می‌شوند.</p></div></div><div id="socialFormHome"><section class="social-overview" aria-label="پرتفوی سفارش‌های سوشال">
+
+/* Accounting navigation cards and reusable detail modal */
+.accounting-nav{max-width:1150px;margin:18px auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.accounting-nav-card{display:flex;align-items:center;gap:12px;min-width:0;min-height:102px;padding:16px;text-align:right;font:inherit;cursor:pointer;border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--text);box-shadow:0 8px 24px rgba(0,0,0,.12);transition:transform .18s,border-color .18s}
+.accounting-nav-card:hover{transform:translateY(-2px);border-color:#ff7900}
+.accounting-nav-card:focus-visible{outline:2px solid #ff7900;outline-offset:3px}
+.accounting-nav-icon{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border-radius:12px;background:rgba(255,121,0,.13);color:#ff7900}
+.accounting-nav-icon svg{width:21px;height:21px}
+.accounting-nav-copy{display:grid;gap:5px;min-width:0;flex:1}
+.accounting-nav-copy b{font-size:14px;color:var(--text)}
+.accounting-nav-copy small{font-size:11px;line-height:1.8;color:var(--muted)}
+.accounting-nav-arrow{color:var(--muted);font-size:17px}
+.accounting-nav-expense{border-color:rgba(255,121,0,.34);background:linear-gradient(145deg,rgba(255,121,0,.07),transparent 60%),var(--card)}
+.axis-accounting-modal{width:min(1120px,100%)!important}
+.axis-accounting-modal-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.axis-accounting-modal-head h3{flex:1;margin:0}
+.axis-accounting-modal .account-detail-panel{margin:0;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+.axis-accounting-modal .account-detail-panel>h2{display:none!important}
+body.light .accounting-nav-card{box-shadow:0 8px 20px rgba(39,59,85,.07)}
+@media(max-width:800px){.accounting-nav{grid-template-columns:1fr;gap:8px}.accounting-nav-card{min-height:76px;padding:12px}.accounting-nav-copy b{font-size:13px}}
+
+
+/* Cash register: opening balance, actual deposits and withdrawals */
+.axis-cash-banner{max-width:1150px;margin:18px auto 0;padding:19px;display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:14px;border:1px solid rgba(255,121,0,.28);border-radius:17px;background:radial-gradient(450px 200px at 100% 0,rgba(255,121,0,.12),transparent 70%),var(--card)}
+.axis-cash-main,.axis-cash-metric{min-width:0;display:flex;flex-direction:column;gap:6px}
+.axis-cash-eyebrow{color:#ff7900;font-size:12px;font-weight:800}
+.axis-cash-main strong{color:var(--text);font-size:24px;line-height:1.4;overflow-wrap:anywhere}
+.axis-cash-main small,.axis-cash-metric span{color:var(--muted);font-size:11.5px;line-height:1.7}
+.axis-cash-metric{padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--dark)}
+.axis-cash-metric b{color:var(--text);font-size:16px;overflow-wrap:anywhere}
+.axis-cash-actions{grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.axis-cash-actions button,.axis-cash-import{display:inline-flex;align-items:center;justify-content:center;border:1px solid #ff7900;border-radius:10px;padding:8px 12px;font:inherit;font-size:11px;font-weight:700;cursor:pointer;background:#ff7900;color:#171717}
+.axis-cash-actions .axis-cash-secondary,.axis-cash-import{border-color:var(--line);background:var(--dark);color:var(--text)}
+.axis-cash-import input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.axis-cash-actions button:focus-visible,.axis-cash-import:focus-within{outline:2px solid #ff7900;outline-offset:2px}
+.axis-cash-note,.axis-cash-warning{grid-column:1/-1;margin:0;color:var(--muted);font-size:11px;line-height:1.9}
+.axis-cash-warning{color:#e18531}
+.axis-cash-tabs{display:flex;gap:5px;flex-wrap:wrap;margin:14px 0 10px}
+.axis-cash-tabs button{padding:8px 11px;border:1px solid var(--line);border-radius:9px;background:var(--dark);color:var(--muted);font:inherit;font-size:12px;cursor:pointer}
+.axis-cash-tabs button.active{background:#ff7900;border-color:#ff7900;color:#171717;font-weight:700}
+.axis-cash-modal-note{font-size:11px;line-height:1.9;color:var(--muted)}
+body.light .axis-cash-banner{background:radial-gradient(450px 200px at 100% 0,rgba(255,121,0,.10),transparent 70%),#fff}
+body.light .axis-cash-metric{background:#f8fafc}
+body.light .axis-cash-warning{color:#9f4e00}
+@media(max-width:700px){.axis-cash-banner{grid-template-columns:repeat(2,minmax(0,1fr));padding:15px;gap:9px}.axis-cash-main{grid-column:1/-1}.axis-cash-main strong{font-size:21px}.axis-cash-actions{gap:6px}.axis-cash-actions button,.axis-cash-import{flex:1 1 auto}}
+
+
+body.light #accountingWorkspace .accounting-nav-card{border-color:#d9e0ea!important}
+body.light #accountingWorkspace .accounting-nav-expense{border-color:#ffc796!important}
+body.light #accountingWorkspace .accounting-nav-card:hover{border-color:#ff7900!important}
+
+.axis-accounting-scroll-tip{display:none;color:var(--muted);font-size:11px;line-height:1.8;margin:-4px 0 12px}@media(max-width:700px){.axis-accounting-scroll-tip{display:block}}
+
+/* Self-contained AXIS logo for the dashboard and printed documents */
+.dashboard-logo img{display:block;width:190px;max-width:38vw;height:auto;object-fit:contain}
+.dashboard-logo .dashboard-version{display:block;margin-top:6px}
+.header .logo img{display:block;width:125px;max-width:100%;height:auto;object-fit:contain}
+.invoice-logo img{display:block;width:145px!important;max-width:100%;height:auto;object-fit:contain}
+.operator-brand{display:flex;align-items:center;justify-content:flex-end;gap:10px;direction:ltr}
+.operator-brand img{display:block;width:110px;max-width:100%;height:auto;object-fit:contain}
+.operator-brand b{direction:rtl;font-size:16px}
+@media(max-width:600px){.dashboard-logo img{width:120px;max-width:31vw}.invoice-logo img{width:100px!important}.operator-brand img{width:88px}.operator-brand b{font-size:13px}}
+
+
+@media(max-width:600px){.dashboard-head{flex-direction:column!important;align-items:stretch!important;gap:10px!important}.dashboard-head .dashboard-logo-wrap{align-self:flex-start!important;max-width:100%;gap:6px!important}.dashboard-head .dashboard-clock{align-self:flex-end!important}.dashboard-logo img{max-width:30vw}}
+
+/* Isolate the selected branded document when printing or saving as PDF. */
+@media print{
+  body:not(.printing-statement) #customerStatementModal{display:none!important}
+  body.printing-statement>*:not(#customerStatementModal){display:none!important}
+  body.printing-invoice>*:not(#orderWorkspace),body.printing-operator>*:not(#orderWorkspace){display:none!important}
+  body.printing-invoice #orderWorkspace,body.printing-operator #orderWorkspace{display:block!important;position:static!important;width:210mm!important;max-width:none!important;margin:0!important;padding:0!important}
+  body.printing-invoice #orderWorkspace>*:not(#invoicePanel),body.printing-operator #orderWorkspace>*:not(#operatorPanel){display:none!important}
+  body.printing-invoice #invoicePanel,body.printing-operator #operatorPanel{display:block!important;margin:0!important;padding:0!important}
+  body.printing-invoice #invoicePreviewCard,body.printing-operator #operatorPanel>section{display:block!important;background:#fff!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
+  body.printing-invoice #invoicePreviewCard>*:not(#invoicePaper),body.printing-operator #operatorPanel>section>*:not(#operatorSheet){display:none!important}
+  body.printing-invoice #invoicePaper,body.printing-operator #operatorSheet{display:block!important;position:static!important;width:210mm!important;max-width:none!important;min-height:0!important;height:auto!important;margin:0!important;padding:12mm!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;page-break-after:auto!important;break-after:auto!important}
+  body.printing-operator #operatorSheet .operator-table{min-width:0!important;width:100%!important}
+}
+
+</style></head><body><main class="dashboard" id="dashboard"><div class="dashboard-shell"><header class="dashboard-head"><div class="dashboard-logo-wrap"><div class="dashboard-logo"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%222616%22%20height%3D%22588%22%20viewBox%3D%220%200%202616%20588%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%222616%22%20y2%3D%220%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fdad64%22%2F%3E%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%23fe963b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ff7900%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20fill%3D%22url%28%23g%29%22%20d%3D%22M0%20586%20L124%20587%20L364%20121%20L371%20115%20L385%20114%20L394%20119%20L398%20124%20L401%20132%20L428%20184%20L433%20191%20L579%20474%20L339%20475%20L282%20587%20L761%20587%20L505%2092%20L486%2052%20L475%2036%20L453%2016%20L431%205%20L409%200%20L353%200%20L331%205%20L314%2013%20L301%2022%20L279%2046%20Z%20M841%200%20L1127%20274%20L800%20587%20L967%20587%20L1210%20355%20L1213%20356%20L1454%20587%20L1621%20587%20L1294%20274%20L1580%200%20L1414%200%20L1211%20194%20L1007%200%20Z%20M1745%200%20L1745%20587%20L1874%20587%20L1874%200%20Z%20M2074%2045%20L2055%2064%20L2042%2082%20L2030%20106%20L2022%20135%20L2022%20213%20L2026%20229%20L2031%20243%20L2041%20263%20L2056%20284%20L2074%20302%20L2096%20318%20L2125%20333%20L2153%20343%20L2192%20351%20L2450%20351%20L2462%20353%20L2482%20362%20L2490%20369%20L2496%20377%20L2503%20396%20L2504%20422%20L2500%20438%20L2495%20448%20L2482%20462%20L2466%20471%20L2443%20477%20L2071%20477%20L2067%20483%20L2056%20512%20L2053%20516%20L2047%20533%20L2023%20587%20L2452%20586%20L2489%20579%20L2525%20566%20L2542%20557%20L2558%20546%20L2582%20523%20L2593%20508%20L2604%20488%20L2614%20458%20L2615%20374%20L2606%20344%20L2596%20324%20L2581%20303%20L2557%20280%20L2531%20263%20L2505%20251%20L2484%20244%20L2445%20236%20L2187%20236%20L2175%20234%20L2155%20225%20L2147%20218%20L2141%20210%20L2134%20191%20L2133%20165%20L2137%20149%20L2142%20139%20L2154%20126%20L2171%20116%20L2194%20110%20L2537%20110%20L2584%200%20L2195%200%20L2161%205%20L2129%2014%20L2102%2026%20Z%22%2F%3E%3C%2Fsvg%3E" alt="لوگوی اکسیس"><span class="dashboard-version">v.1.2.103</span></div><button class="dashboard-theme-btn" id="themeToggle" onclick="toggleTheme()" title="حالت روز" aria-label="تغییر حالت روز و شب">☀</button><button class="dashboard-theme-btn" onclick="manualBackup()" title="ذخیره دستی بکاپ">⇧</button><button class="dashboard-theme-btn" onclick="manualRestore()" title="بازیابی دستی اطلاعات">↺</button><button class="dashboard-theme-btn" onclick="showAccountSettings()" title="حساب کاربری" style="display:grid;place-items:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-2px"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.7-5.2 7-5.2s6.2 1.6 7 5.2"/></svg></button></div><div class="dash-act-stack" id="dashboardActivityStack"></div><div id="dashboardOthersLive"></div><div class="dashboard-clock"><div id="dashboardTime" class="dashboard-time">00:00</div><div id="dashboardDate" class="dashboard-date">—</div></div></header><section><div class="dashboard-grid"><button class="dashboard-tile primary" onclick="showOrderWorkspace()"><span class="tile-icon">＋</span><b>سفارش جدید</b><small>ثبت مشتری، انتخاب محصولات، محاسبه قیمت و آماده‌سازی پیش‌فاکتور</small></button><button class="dashboard-tile" onclick="showSocialOrder()"><span class="tile-icon">✦</span><b>سفارش‌های سوشال مدیا</b><small>ثبت مستقل سفارش‌های تلگرام، اینستاگرام و متفرقه</small></button><button class="dashboard-tile" onclick="showManagement()"><span class="tile-icon">▤</span><b>مدیریت سفارش‌ها</b><small>مشاهده، پیگیری و دریافت خروجی سفارش‌های ثبت‌شده</small></button><button class="dashboard-tile" onclick="showCustomers()"><span class="tile-icon">👥</span><b>مشتریان</b><small>فهرست نام، تماس، آدرس و سوابق سفارش مشتریان</small></button><button class="dashboard-tile" onclick="showAccounting()"><span class="tile-icon">◈</span><b>حسابداری</b><small>گزارش تراکنش‌ها، دریافت‌ها و پرتفوی مالی</small></button><button class="dashboard-tile" onclick="showProductManagement()"><span class="tile-icon">⚙</span><b>مدیریت محصولات و مواد اولیه</b><small>قیمت فیلامنت، مواد اولیه، حلقه و محصول‌ها</small></button><div class="dashboard-tile disabled"><span class="tile-icon">◫</span><b>گزارش‌ها</b><small>به‌زودی: گزارش فروش، تولید و مصرف مواد</small></div></div></section></div></main><main class="management workspace" id="managementWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>مدیریت سفارش‌ها</h1><p>سفارش‌های ثبت‌شده در این مرورگر</p></div><button class="dark" onclick="downloadOrdersCsv()">⇩ خروجی Excel (CSV)</button></div><section class="card"><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>شماره سفارش</th><th>تاریخ</th><th>مشتری</th><th>تماس</th><th>تعداد آیتم</th><th>روند چاپ</th><th>زمان باقی‌مانده</th><th>وضعیت سفارش</th><th>عملیات</th></tr></thead><tbody id="managementRows"></tbody></table></div></section><section class="card import-panel" id="progressPanel"><h2 id="progressTitle">روند تولید سفارش</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>کد</th><th>محصول</th><th>تعداد سفارش</th><th>تعداد چاپ‌شده</th><th>باقی‌مانده</th></tr></thead><tbody id="progressRows"></tbody></table></div><div style="margin-top:14px"><button class="dark" style="background:var(--orange);color:#171b22" onclick="saveOrderProgress()">ذخیره روند چاپ</button></div></section></main><main class="management workspace" id="customersWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>مشتریان</h1><p>فهرست مشتریان ثبت‌شده از سفارش‌ها</p></div><button class="dark iconbtn" id="customerAddToggle" onclick="toggleCustomerAddPanel()" title="افزودن مشتری" aria-label="افزودن مشتری" aria-expanded="false">+</button></div><div id="customerAddPanel" class="import-panel"><section class="card"><h2>افزودن مشتری</h2><div class="form"><div><label class="title">نام مشتری</label><input id="newCustomerName" placeholder="نام و نام خانوادگی"></div><div><label class="title">شماره تماس</label><input id="newCustomerPhone" placeholder="۰۹۱۲..."></div><div class="full"><label class="title">آدرس</label><textarea id="newCustomerAddress" rows="2" placeholder="آدرس کامل مشتری"></textarea></div><div class="full"><button class="dark" onclick="addCustomer()" style="background:var(--orange);color:#171b22">＋ ثبت مشتری</button></div></div></section></div><section class="card"><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>نام مشتری</th><th>شماره تماس</th><th>آدرس</th><th>تعداد سفارش</th><th>آخرین سفارش</th><th>مجموع خرید</th><th>بدهی فعلی</th><th>عملیات</th></tr></thead><tbody id="customerRows"></tbody></table></div></section></main><main class="management workspace" id="orderPortfolioWorkspace"><div class="management-head"><button class="dark" onclick="showManagement()">← مدیریت سفارش‌ها</button><div><h1 id="orderPortfolioTitle">پرتفوی سفارش</h1><p id="orderPortfolioCustomer" class="customer-profile-link" onclick="openPortfolioCustomer()"></p></div><div class="portfolio-doc-actions"><button title="افزودن محصول به سفارش" onclick="togglePortfolioAddProduct()">＋</button><button title="مشاهده پیش‌فاکتور" onclick="openPortfolioDocument('invoice')">▧</button><button title="مشاهده لیست اپراتور" onclick="openPortfolioDocument('operator')">▤</button></div></div><section class="portfolio-stats"><div><small>مبلغ کل سفارش</small><b id="orderPortfolioTotal">۰ تومان</b></div><div><small>تعداد کل محصولات</small><b id="orderPortfolioQty">۰</b></div><div><small>هزینه مواد</small><b id="orderPortfolioMaterial">۰ تومان</b></div><div><small>سود خالص</small><b id="orderPortfolioProfit">۰ تومان</b></div><div class="debt"><small>وضعیت تولید</small><b id="orderPortfolioProgress">۰ / ۰</b></div><div><small>زمان کل تولید</small><b id="orderPortfolioTime">۰ دقیقه</b></div><div><small>تعداد باقی‌مانده</small><b id="orderPortfolioRemaining">۰</b></div></section><section class="card import-panel" id="portfolioAddProductPanel"><h2>افزودن محصول به سفارش</h2><div class="form"><div><label class="title">محصول</label><select id="portfolioAddProductSelect"></select></div><div><label class="title">تعداد</label><input id="portfolioAddQty" type="number" min="1" value="1"></div><div><label class="title">قیمت واحد</label><input id="portfolioAddPrice" inputmode="numeric" placeholder="قیمت تکی محصول"></div><div style="align-self:end"><button class="dark" onclick="addProductToActiveOrder()" style="background:var(--orange);color:#171b22">＋ افزودن</button></div></div></section><section class="card"><h2>وضعیت محصولات سفارش</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>کد</th><th>محصول</th><th>تعداد سفارش</th><th>چاپ‌شده</th><th>باقی‌مانده</th><th>زمان کل</th><th>توضیحات</th><th>عملیات</th></tr></thead><tbody id="orderPortfolioRows"></tbody></table></div><div style="margin-top:14px"><button class="dark" style="background:var(--orange);color:#171b22" onclick="saveOrderPortfolioProgress()">ذخیره تعداد چاپ‌شده</button></div></section><section class="card"><h2>مرحله سفارش</h2><div class="stage-box"><b id="orderStageLabel">ثبت شده</b><p id="orderStageHint"></p><button class="dark" id="orderStageButton" onclick="advanceOrderStage()"></button></div></section></main><main class="management workspace" id="portfolioWorkspace"><div class="management-head"><button class="dark" onclick="showCustomers()">← مشتریان</button><div><h1 id="portfolioName">پرونده مشتری</h1><p id="portfolioContact"></p></div><button class="dark" onclick="openCustomerStatementModal()" title="برگه صورت‌حساب و تاریخچه کامل مشتری" style="margin-inline-start:auto"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="vertical-align:-2px"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg> صورت‌حساب / برگه تاریخچه</button></div><section class="portfolio-stats"><div><small>مجموع سفارش‌ها</small><b id="portfolioOrdersTotal">۰ تومان</b></div><div><small>مجموع پرداختی‌ها</small><b id="portfolioPaymentsTotal">۰ تومان</b></div><div><small>بدهی گذشته</small><b id="portfolioOpeningDebt">۰ تومان</b></div><div class="debt"><small>مانده بدهی</small><b id="portfolioDebt">۰ تومان</b></div></section><section class="card"><h2>ثبت پرداختی جدید</h2><div class="form"><div><label class="title">مبلغ پرداختی (تومان)</label><input id="paymentAmount" inputmode="numeric" placeholder="مثلاً ۵۰۰۰۰۰"></div><div><label class="title">تاریخ پرداخت</label><input id="paymentDate" placeholder="۱۴۰۵/۰۱/۲۱"></div><div class="full"><label class="title">توضیحات</label><textarea id="paymentNote" rows="2" placeholder="شماره کارت، روش پرداخت یا توضیحات"></textarea></div><div class="full"><button class="dark" onclick="addPayment()" style="background:var(--orange);color:#171b22">ثبت پرداختی</button></div></div></section><section class="card"><h2>وضعیت سفارش‌ها</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>فاکتور</th><th>تاریخ</th><th>مبلغ</th><th>روند چاپ</th></tr></thead><tbody id="portfolioOrders"></tbody></table></div></section><section class="card"><h2>تاریخچه پرداختی‌ها</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>تاریخ</th><th>مبلغ</th><th>توضیحات</th></tr></thead><tbody id="portfolioPayments"></tbody></table></div></section></main><main class="management workspace" id="accountingWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>حسابداری</h1><p>پرتفوی مالی و گزارش تراکنش‌ها</p></div></div><div class="accounting-range" aria-label="بازه گزارش"><button onclick="setAccountingRange('1W')">1W</button><button onclick="setAccountingRange('1M')">1M</button><button onclick="setAccountingRange('1Y')">1Y</button><button class="active" onclick="setAccountingRange('ALL')">ALL</button></div><section class="portfolio-stats"><div><small>فروش محصولات</small><b id="accSales">۰ تومان</b></div><div><small>هزینه پست قابل‌دریافت</small><b id="accShipping">۰ تومان</b></div><div><small>جمع قابل‌دریافت</small><b id="accReceivable">۰ تومان</b></div><div><small>پرداخت‌های ثبت‌شده</small><b id="accPayments">۰ تومان</b></div><div class="debt"><small>مانده بدهی کل مشتریان</small><b id="accDebt">۰ تومان</b></div></section><p class="info" style="max-width:1150px;margin:0 auto 12px">فروش، پست و پرداخت‌ها مربوط به بازهٔ انتخابی‌اند؛ مانده بدهی و پرتفوی مشتریان همیشه کل تاریخچه و بدهی‌های پیشین را نشان می‌دهند. پست تا زمان پرداخت، بدهی است و فروش یا پرداخت‌شده محسوب نمی‌شود.</p><p id="accCreditHint" class="info" style="display:none;max-width:1150px;margin:0 auto 12px"></p><section class="axis-cash-banner" aria-label="موجودی مالی">
+  <div class="axis-cash-main"><span class="axis-cash-eyebrow">موجودی مالی</span><strong id="accCashBalance">تعیین نشده</strong><small id="accCashStartNote">ابتدا موجودی اولیه را تعیین کنید.</small></div>
+  <div class="axis-cash-metric"><span>واریزی‌ها از شروع</span><b id="accCashIncome">—</b></div>
+  <div class="axis-cash-metric"><span>برداشت‌ها و مخارج از شروع</span><b id="accCashOutflow">—</b></div>
+  <div class="axis-cash-actions"><button type="button" id="accCashSetupButton" onclick="axisOpenCashSetup(false)">تعیین موجودی اولیه</button><button type="button" class="axis-cash-secondary" onclick="axisExportCashBackup()">⇩ پشتیبان مالی</button><label class="axis-cash-import">⇧ بازیابی مالی<input type="file" accept="application/json,.json" onchange="axisImportCashBackup(this)"></label></div>
+  <p class="axis-cash-note">پرداخت‌های مشتریان از زمان ثبت موجودی اولیه به مانده افزوده می‌شوند؛ تراکنش‌های قبلی دوباره شمرده نمی‌شوند. واریزهای غیرمشتری و مخارج را از کارت «مخارج و خریدها» ثبت کنید.</p>
+  <p class="axis-cash-note">تا به‌روزرسانی اسکریپت Google Sheets، برای نگهداری دفتر مالی از دکمهٔ پشتیبان مالی استفاده کنید. هنگام بازیابی، ابتدا اطلاعات سفارش‌ها و انبار را بازیابی کنید.</p>
+  <p id="accCashWarning" class="axis-cash-warning" style="display:none"></p>
+</section><section class="accounting-nav" aria-label="بخش‌های حسابداری">
+  <button type="button" class="accounting-nav-card" id="accountingTransactionsCard" onclick="axisOpenAccountingPanel('transactions')">
+    <span class="accounting-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h14M15 4l3 3-3 3M20 17H6m3-3-3 3 3 3"/></svg></span>
+    <span class="accounting-nav-copy"><b>تراکنش‌ها</b><small>سفارش‌ها، پرداخت‌ها و گردش مالی</small></span><span class="accounting-nav-arrow" aria-hidden="true">←</span>
+  </button>
+  <button type="button" class="accounting-nav-card" id="accountingCustomersCard" onclick="axisOpenAccountingPanel('customers')">
+    <span class="accounting-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19v-1.2A5.5 5.5 0 0 1 9 12.3a5.5 5.5 0 0 1 5.5 5.5V19M15 5.2a3 3 0 0 1 0 5.6M16 13a4.5 4.5 0 0 1 4.5 4.5V19"/></svg></span>
+    <span class="accounting-nav-copy"><b>پرتفوی مشتریان</b><small>پرداخت‌ها، بدهی و بستانکاری مشتریان</small></span><span class="accounting-nav-arrow" aria-hidden="true">←</span>
+  </button>
+  <button type="button" class="accounting-nav-card accounting-nav-expense" id="accountingCashCard" onclick="axisOpenCashEntryModal()">
+    <span class="accounting-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 10h18M15 15h3M12 2v6M9 5h6"/></svg></span>
+    <span class="accounting-nav-copy"><b>مخارج و خریدها</b><small>ثبت هزینه، خرید انبار و واریز دستی</small></span><span class="accounting-nav-arrow" aria-hidden="true">←</span>
+  </button>
+</section><div id="accountingPanelsHome" style="display:none"><section class="card account-detail-panel" id="accountingTransactionsPanel"><h2>تراکنش‌ها</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>تاریخ</th><th>نوع تراکنش</th><th>مشتری</th><th>شماره سفارش</th><th>مبلغ</th><th>توضیحات</th><th>عملیات</th></tr></thead><tbody id="accountingRows"></tbody></table></div></section><section class="card account-detail-panel" id="accountingCustomersPanel"><h2>پرتفوی مشتریان</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>مشتری</th><th>کل مبلغ و بدهی پیشین</th><th>کل پرداخت‌ها</th><th>بدهی جاری</th><th>بستانکاری</th></tr></thead><tbody id="accountingPortfolioRows"></tbody></table></div></section></div></main><main class="management workspace" id="productCategoryWorkspace"><div class="management-head"><button class="dark" onclick="backToProductManager()">← مدیریت محصولات</button><div><h1 id="productCategoryPageTitle">محصولات</h1><p>مدیریت محصولات دسته انتخاب‌شده</p></div></div><div id="productDetailMount"></div></main><main class="management workspace" id="productNewWorkspace"><div class="management-head"><button class="dark" onclick="backToProductManager()">← مدیریت محصولات</button><div><h1 id="newProductPageTitle">افزودن محصول جدید</h1><p>ثبت محصول و قیمت‌گذاری خودکار</p></div></div><div id="productNewMount"></div></main><main class="management workspace" id="socialWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>سفارش‌های سوشال مدیا</h1><p>ثبت سفارشهای مستقل تلگرام، اینستاگرام و متفرقه. مشتریان پس از ثبت سفارش در همین صفحه ذخیره می‌شوند.</p></div></div><div id="socialFormHome"><section class="social-overview" aria-label="پرتفوی سفارش‌های سوشال">
   <div class="social-overview-head">
     <div class="social-overview-heading">
       <div class="social-overview-eyebrow"><span class="social-overview-pulse"></span>نمای کلی سوشال</div>
@@ -254,7 +355,7 @@ body.light #accountingWorkspace .portfolio-stats>div.debt b{color:#a84b00!import
   <p class="social-overview-note">بازه‌ها بر اساس تقویم شمسی جاری هستند. هزینهٔ پست در مبلغ محصولات و سود محاسبه نمی‌شود؛ سایر هزینه‌ها مانند نیروی کار در سود لحاظ نشده‌اند.</p>
   <p id="socialOverviewWarning" class="social-overview-warning" style="display:none"></p>
 </section><section><div class="dashboard-grid"><button class="dashboard-tile primary" onclick="startSocialOrder()"><span class="tile-icon">＋</span><b>سفارش جدید</b><small>ثبت سفارش مستقل از تلگرام، اینستاگرام یا متفرقه</small></button><button class="dashboard-tile" onclick="showSocialOrdersList()"><span class="tile-icon">▤</span><b>لیست سفارش‌های سوشال مدیا</b><small>مشاهده و مدیریت سفارشهای ثبت شده</small></button><button class="dashboard-tile" onclick="showSocialCustomersList()"><span class="tile-icon">👥</span><b>مشتریان</b><small>مشتریانی که سفارش ثبت کرده‌اند</small></button></div></section><div id="socialFormPanel" class="import-panel"><section class="portfolio-stats" id="socialStats"><div><small>مبلغ محصولات</small><b id="socialRevenue">۰ تومان</b></div><div><small>هزینه مواد</small><b id="socialMaterial">۰ تومان</b></div><div><small>هزینه پست</small><b id="socialShippingOut">۰ تومان</b></div><div><small>سود خالص</small><b id="socialProfit">۰ تومان</b></div><div class="debt"><small>مانده پرداخت</small><b id="socialRemaining">۰ تومان</b></div></section><section class="card" id="socialCustomerCard"><h2>اطلاعات سفارش‌دهنده</h2><div class="form"><div class="full"><label class="title">انتخاب مشتری</label><select id="socialCustomerSelect" onchange="fillSocialCustomerFromSelect()"><option value="">مشتری جدید</option></select></div><div><label class="title">محل سفارش</label><select id="socialSource"><option>تلگرام</option><option>اینستاگرام</option><option>متفرقه</option></select></div><div><label class="title">نام گیرنده</label><input id="socialRecipient" placeholder="نام و نام خانوادگی"></div><div><label class="title">آی‌دی</label><input id="socialId" placeholder="@username"></div><div><label class="title">شماره تماس</label><input id="socialPhone" placeholder="۰۹۱۲..."></div><div class="full"><label class="title">آدرس</label><textarea id="socialAddress" rows="2" placeholder="آدرس کامل گیرنده"></textarea></div><div><label class="title">کد پستی</label><input id="socialPostalCode" inputmode="numeric" placeholder="۱۰ رقم"></div></div></section><section class="card"><h2>محصولات سفارش</h2><div class="form"><div><label class="title">کیفیت چاپ</label><select id="socialQuality"><option value="0.2" selected>سیلور 🥈 ۰.۲</option><option value="0.14">گلد 🥇 ۰.۱۴</option><option value="0.08">دیاموند 💎 ۰.۰۸</option></select></div><div><label class="title">محصول</label><select id="socialProduct"></select></div><div class="full" style="margin-top:2px"><button type="button" class="dark" onclick="openQuickProductPopup('social')" style="width:100%;background:var(--orange);color:#171b22">＋ ثبت محصول جدید</button></div><div><label class="title">تعداد</label><input id="socialQty" type="number" min="1" value="1" oninput="renderSocialPortfolio()"></div><div><label class="title">قیمت واحد دستی</label><input id="socialUnitPrice" inputmode="numeric" placeholder="قیمت پیش‌فرض تکی"></div><div><label class="title">هزینه پست</label><input id="socialShipping" inputmode="numeric" placeholder="۰" oninput="renderSocialPortfolio()"></div><div><label class="title">نحوه ارسال</label><input id="socialShippingMethod" placeholder="پست، تیپاکس و..."></div><div><label class="title">مبلغ پرداختی</label><input id="socialPayment" inputmode="numeric" placeholder="۰" oninput="renderSocialPortfolio()"></div><div><label class="title">ثبت پرداختی</label><button class="dark" type="button" onclick="addSocialPayment()">＋ افزودن پرداختی</button></div><div class="full"><div id="socialPaymentsList" class="info"></div></div><div class="full"><button class="dark" onclick="addSocialProduct()" style="background:var(--orange);color:#171b22">＋ افزودن محصول</button></div></div><div class="cart-table-wrap" style="margin-top:16px"><table class="cart-table"><thead><tr><th>کد</th><th>محصول</th><th>تعداد</th><th>قیمت واحد</th><th>مبلغ</th><th></th></tr></thead><tbody id="socialItems"></tbody></table></div><div class="submit-order-bar"><button onclick="saveSocialOrder()">✓ ثبت سفارش سوشال مدیا</button></div></section><section class="card"><h2>وضعیت سفارش</h2><div class="stage-box"><b id="socialStageLabel">چاپ مدل</b><p id="socialStageHint">مرحله بعدی: اسمبل کردن مدل</p><div id="socialTrackingWrap" style="display:none;margin:10px 0"><label class="title">بارکد پستی</label><input id="socialTrackingCode" placeholder="بارکد پستی / کد پیگیری"></div><button class="dark" id="socialStageButton" onclick="advanceSocialStage()">شروع چاپ</button></div></section></div></div></main><main class="management workspace" id="socialOrdersWorkspace"><div class="management-head"><button class="dark" onclick="showSocialOrder()">← صفحه اصلی</button><div><h1>لیست سفارش‌های سوشال مدیا</h1><p>سفارش‌های ثبت‌شده در این مرورگر</p></div></div><section class="card" id="socialOrdersCard"><h2>لیست سفارش‌های سوشال مدیا</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>کد سفارش</th><th>منبع</th><th>گیرنده</th><th>تلفن</th><th>وضعیت</th><th>قابل‌دریافت با پست</th><th>عملیات</th></tr></thead><tbody id="socialOrdersRows"></tbody></table></div></section></main><main class="management workspace" id="socialCustomersWorkspace"><div class="management-head"><button class="dark" onclick="showSocialOrder()">← صفحه اصلی</button><div><h1>مشتریان</h1><p>فهرست مشتریان ثبت‌شده از سفارش‌ها</p></div></div><section class="card" id="socialCustomersCard"><h2>مشتریان</h2><p class="info">پس از ثبت سفارش، اطلاعات کامل مشتری اینجا ذخیره می‌شود.</p><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>نام مشتری</th><th>شماره تماس</th><th>محصول</th><th>تعداد سفارش</th><th>آخرین سفارش</th><th>مجموع خرید</th><th>عملیات</th></tr></thead><tbody id="socialCustomersRows"></tbody></table></div></section></main><main class="management workspace" id="socialPortfolioWorkspace"><div class="management-head"><button class="dark" onclick="backToSocialList()">← لیست سفارش‌ها</button><div><h1 id="socialPortfolioTitle">پرتفوی سفارش سوشال</h1><p id="socialPortfolioRecipient"></p></div><button class="dark" onclick="editSocialOrder()">ویرایش سفارش</button><div class="portfolio-doc-actions"><button title="برگه پست A6 — قابل چاپ" onclick="openPostalLabel()">🖨</button><button title="تصویر سفارش — دانلود" onclick="openSocialOrderReceiptByIndex(editingSocialIndex)">🖼</button></div></div><section class="portfolio-stats" id="socialPortfolioStats"><div><small>مبلغ محصولات</small><b id="spProductTotal">۰ تومان</b></div><div><small>هزینه پست</small><b id="spShipping">۰ تومان</b></div><div><small>جمع قابل‌دریافت با پست</small><b id="spTotal">۰ تومان</b></div><div><small>هزینه مواد</small><b id="spMaterial">۰ تومان</b></div><div><small>پرداختی</small><b id="spPaid">۰ تومان</b></div><div class="debt"><small>مانده بدهی</small><b id="spRemain">۰ تومان</b></div></section><section class="card"><h2>محصولات و وضعیت سفارش</h2><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>کد</th><th>محصول</th><th>تعداد</th><th>مبلغ</th></tr></thead><tbody id="socialPortfolioRows"></tbody></table></div><div class="stage-box" style="margin-top:16px"><b id="spStage" aria-live="polite"></b><div id="spStageList" style="margin-top:10px"></div><button type="button" id="spNextStageButton" onclick="advanceSocialPortfolioStage()" style="margin-top:14px;display:inline-flex;align-items:center;max-width:100%;white-space:normal;text-align:right">مرحله بعدی</button><p id="spTracking" aria-live="polite" style="display:none;margin:14px 0 6px"></p><div id="spTrackingForm" style="display:none;margin-top:10px"><label class="title" for="spTrackingInput" style="color:#6f604f">کد پیگیری / بارکد پستی</label><input id="spTrackingInput" placeholder="کد پیگیری یا بارکد پستی" style="width:100%;margin-bottom:8px;background:#fff;border:1px solid #e8c9a8;color:#3a2c1c"><button type="button" id="spTrackingSubmit" onclick="saveSocialTrackingCode()">ثبت کد پیگیری</button></div></div></section></main><main class="management workspace" id="socialNewWorkspace"><div class="management-head"><button class="dark" onclick="backToSocialList()">← لیست سفارش‌ها</button><div><h1>ثبت سفارش سوشال مدیا</h1><p>ثبت سفارش مستقل از سفارش‌های اصلی</p></div></div><div id="socialFormMount"></div></main><main class="management workspace" id="productManagementWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>مدیریت محصولات و مواد اولیه</h1><p>انتخاب دسته برای مدیریت قیمت و محصولات</p></div></div><div class="product-category-grid"><button onclick="showProductCategory('materials')"><span>◌</span>مواد اولیه</button><button onclick="showProductCategory('keychain')"><span>◈</span>جاکلیدی</button><button onclick="showProductCategory('decorative')"><span>◉</span>دکوراتیو</button><button onclick="showProductCategory('car')"><span>▣</span>ماشین</button><button onclick="showProductCategory('clock')"><span>◷</span>ساعت</button><button onclick="showProductCategory('CHARM')"><span>✦</span>Charm</button><div id="customCategoryTiles" style="display:contents"></div><button onclick="showProductCategory('all')"><span>▤</span>همه محصولات</button><button class="add-product-tile" onclick="showNewProductForm()"><span>＋</span>افزودن محصول</button><button class="add-product-tile" onclick="addProductCategory()"><span>＋</span>افزودن دسته‌بندی</button></div><div id="productNewHome"><div id="newProductPanel" class="import-panel"><section class="card"><h2 id="newProductFormHeading">افزودن محصول جدید</h2><div class="form"><div><label class="title">دسته‌بندی</label><select id="newProductCategory" onchange="suggestProductCode();calculateNewProductPrices()"><option value="keychain">جاکلیدی</option><option value="decorative">دکوراتیو</option><option value="car">ماشین</option><option value="clock">ساعت</option><option value="CHARM">Charm</option></select></div><div><label class="title">کد محصول پیشنهادی</label><input id="newProductCode" placeholder="کد محصول"></div><div><label class="title">نام محصول</label><input id="newProductName" placeholder="نام محصول"></div><div class="full"><label class="title">کیفیت چاپ</label><div class="vb-tabs" id="newProductQualityTabs" style="margin-top:6px"></div><p class="info" style="margin:6px 0 0">وزن و زمان هر پارت مربوط به کیفیت انتخاب‌شده است.</p></div><div class="full"><div id="newProductPartsBox"></div><div style="display:flex;gap:8px;margin-top:10px"><button type="button" class="muted-btn" onclick="npAddPart()">＋ افزودن پارت دیگر</button></div></div><div><label class="title">زمان آماده‌سازی (دقیقه)</label><input id="newProductPrepTime" inputmode="decimal" value="0" oninput="calculateNewProductPrices()"></div><div><label class="title">زمان رنگ‌آمیزی (دقیقه)</label><input id="newProductPaintTime" inputmode="decimal" value="0" oninput="calculateNewProductPrices()"></div><div><label class="title">زمان اسمبل کردن (دقیقه)</label><input id="newProductAssemblyTime" inputmode="decimal" value="0" oninput="calculateNewProductPrices()"></div><div class="full" style="margin-top:4px"><label class="title">خرج‌کارهای انتخاب‌شده از انبار (حلقه، آهنربا، جعبه و ...)</label><button type="button" class="dark" onclick="openProductConsumablesModal()" style="background:var(--dark);border:1px solid var(--line);padding:11px 14px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer"><span>📦 انتخاب و ورود تعداد خرج‌کارهای انبار ↗</span><b id="newProductConsumablesCostDisplay" style="color:var(--orange);font-size:14px">۰ تومان</b></button><label class="title" style="margin-top:10px">یا ورود دستی هزینه خرج‌کارها (تومان)</label><input id="newProductConsumablesCost" inputmode="numeric" value="0" oninput="npOnConsumablesCostInput()"></div><div><label class="title">تعرفه چاپ تکی (تومان/ساعت)</label><input id="newProductMinuteCost" inputmode="numeric" readonly><p class="info" style="margin:4px 0 0">قیمت‌ها بر اساس تعرفه‌های ثبت‌شده محاسبه می‌شوند.</p></div></div><div class="portfolio-stats" style="margin-top:18px"><div><small>هزینه مواد</small><b id="newMaterialCost">۰ تومان</b></div><div><small>هزینه چاپ</small><b id="newPrintCost">۰ تومان</b></div><div class="debt"><small>هزینه پایه</small><b id="newBaseCost">۰ تومان</b></div></div><div class="form"><div><label class="title">قیمت تکی</label><input id="newP0" readonly></div><div><label class="title">عمده A</label><input id="newP1" readonly></div><div><label class="title">عمده B</label><input id="newP2" readonly></div><div><label class="title">عمده C</label><input id="newP3" readonly></div><div><label class="title">عمده D</label><input id="newP4" readonly></div><div class="full"><button class="dark" id="newProductSubmitBtn" onclick="saveNewProduct()" style="background:var(--orange);color:#171b22">ثبت محصول</button></div></div></section></div></div><div id="productDetailHome"><div id="productDetailPanel" class="import-panel"><section class="card" id="productsListCard"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2 id="productsManagementTitle" style="margin:0">فهرست محصولات</h2><button class="dark" onclick="axisSyncCategoryMaterials(activeProductCategory||'all')" style="display:inline-flex;align-items:center;gap:6px;background:#3b82f622;color:#60a5fa;border:1px solid #3b82f644;margin-inline-end:8px" title="بروزرسانی قیمت مواد اولیه و جایگزینی مواد صفر شده"><span>↻</span> بروزرسانی مواد اولیه و جایگزینی مواد صفر</button><button class="dark" onclick="refreshActiveProductCategory()">↻ وارد کردن محصولات</button></div><div class="cart-table-wrap" style="margin-top:16px"><table class="cart-table"><thead><tr><th>کد</th><th>نام</th><th>دسته</th><th>فیلامنت</th><th>قیمت ماده</th><th>وزن</th><th>زمان چاپ</th><th>کیفیت</th><th>تکی</th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead><tbody id="productsManagementRows"></tbody></table></div><section class="card" id="materialsHub" style="display:none"></section><section class="card" id="materialsListCard" style="display:none"></section></section></div></main><main class="management workspace" id="imageEditorWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1>ادیت عکس محصولات</h1><p>انتخاب محصول و آماده‌سازی تصویر برای کاتالوگ</p></div></div><section class="card"><div class="image-tool-grid"><button onclick="selectImageTool('حذف بک‌گراند')"><span>✂</span><b>حذف بک‌گراند</b><small>حذف پس‌زمینه و آماده‌سازی عکس محصول</small></button><button onclick="selectImageTool('قالب کاتالوگ')"><span>▧</span><b>قرار دادن عکس در قالب کاتالوگ</b><small>چیدمان عکس محصول داخل قالب آماده</small></button><button onclick="selectImageTool('کاتالوگ A4 چهار عکس')"><span>▦</span><b>۴ عکس در کاتالوگ A4</b><small>ساخت یک برگه A4 از چهار عکس محصول</small></button></div><div id="imageToolHome"><div id="bgRemovalPanel" class="import-panel" style="margin-top:18px"><div class="form"><div class="full"><label class="title">انتخاب عکس محصول</label><input id="bgRemovalFile" type="file" accept="image/*" onchange="prepareBackgroundRemoval(this.files[0])"></div></div><div id="bgRemovalPreview" class="image-editor-preview">عکس محصول را انتخاب کنید</div><div style="margin-top:14px;display:flex;gap:9px"><button class="dark" id="removeBgButton" onclick="runBackgroundRemoval()" style="background:var(--orange);color:#171b22">حذف بک‌گراند با هوش مصنوعی</button><button class="dark" onclick="downloadBackgroundResult()">⇩ دانلود PNG</button></div></div></div><div id="catalogTemplatePanel" class="import-panel" style="margin-top:18px"><div class="form"><div><label class="title">کد محصول جدید</label><input id="catalogProductCode" placeholder="مثلاً 632157"></div><div><label class="title">عکس محصول</label><input id="catalogProductFile" type="file" accept="image/*" onchange="prepareCatalogProduct(this.files[0])"></div></div><div id="catalogPreview" class="image-editor-preview">کد محصول و عکس را وارد کنید</div><div style="margin-top:14px"><button class="dark" onclick="buildCatalogImage()" style="background:var(--orange);color:#171b22">ساخت عکس کاتالوگ</button><button class="dark" onclick="downloadCatalogImage()">⇩ دانلود عکس</button></div></div><p class="info" id="imageToolStatus">یکی از ابزارها را انتخاب کنید؛ سپس نمونه و توضیحات مورد نظر را ارسال کنید.</p></section></main><main class="management workspace" id="imageToolWorkspace"><div class="management-head"><button class="dark" onclick="backToImageTools()">← ادیت عکس محصولات</button><div><h1 id="imageToolPageTitle">ابزار ادیت عکس</h1><p id="imageToolPageText"></p></div></div><div id="imageToolMount"></div></main><main class="management workspace" id="accountWorkspace"><div class="management-head"><button class="dark" onclick="showDashboard()">⌂ صفحه اصلی</button><div><h1 id="accountPageTitle">حساب کاربری</h1><p id="accountPageSub">فعالیت، کاربران و تنظیمات حساب</p></div><button class="dark" onclick="logoutAccount()">خروج از حساب</button></div><div id="accountHome"><section class="card account-mini"><div class="account-avatar" style="display:grid;place-items:center"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.7-5.2 7-5.2s6.2 1.6 7 5.2"/></svg></div><div style="flex:1"><h2 id="accountProfileName">کاربر</h2><p class="info" id="accountProfileRole">کاربر</p></div><div class="account-live-chip" id="accountHomeChip" title="فعالیت جاری شما"><span class="account-live-dot" id="accountHomeDot"></span><span id="accountHomeActivity">فعالیتی ثبت نشده</span></div></section><div id="accountHomeLive"></div><div class="account-tile-grid" id="accountTileGrid"></div></div><div id="accountViewMount"></div></main><div class="wrap workspace" id="orderWorkspace">
-<header class="header"><div><div class="logo" onclick="showDashboard()" title="بازگشت به داشبورد"></div><div class="sub">سیستم محاسبه سفارش و قیمت‌گذاری</div></div><div class="toolbar"><button class="dark iconbtn" id="operatorToggle" onclick="toggleOperatorPanel()" title="لیست اپراتور پرینت" aria-label="لیست اپراتور پرینت" aria-expanded="false">▤</button><button class="dark iconbtn" id="invoiceToggle" onclick="toggleInvoicePanel()" title="پیش‌نمایش فاکتور" aria-label="پیش‌نمایش فاکتور" aria-expanded="false">▧</button><button class="dark iconbtn" id="updateCustomerDateBtn" onclick="axisUpdateCustomerDate()" title="بروزرسانی تاریخ آخرین سفارش مشتری" aria-label="بروزرسانی تاریخ مشتری">📅</button><button class="dark iconbtn" id="updateCustomerDebtBtn" onclick="axisUpdateCustomerDebt()" title="بروزرسانی بدهی مشتری (نمایش در فاکتور)" aria-label="بروزرسانی بدهی مشتری">💰</button><button class="dark iconbtn" id="customerToggle" onclick="toggleCustomerPanel()" title="اطلاعات سفارش‌دهنده" aria-label="اطلاعات سفارش‌دهنده" aria-expanded="false">👤</button><button class="dark iconbtn" id="addToggle" onclick="toggleProductPanel()" title="افزودن محصول به سفارش" aria-label="افزودن محصول به سفارش" aria-expanded="false">+</button><button class="dark iconbtn" id="importToggle" onclick="toggleImportPanel()" title="آپلود یا بروزرسانی اطلاعات" aria-label="آپلود یا بروزرسانی اطلاعات" aria-expanded="false">⇧</button><button class="dark" onclick="restoreAllProducts()">↻ بازیابی کامل محصولات</button><button class="dark" onclick="document.getElementById('quickProductFile').click()">⇧ محصولات</button><input id="quickProductFile" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="importQuickProducts(this.files[0])"><button class="dark" onclick="newInvoice()">فاکتور جدید</button><button class="dark iconbtn" onclick="showDashboard()" title="بازگشت به صفحه اصلی" aria-label="بازگشت به صفحه اصلی">⌂</button></div></header>
+<header class="header"><div><div class="logo" onclick="showDashboard()" title="بازگشت به داشبورد"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%222616%22%20height%3D%22588%22%20viewBox%3D%220%200%202616%20588%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%222616%22%20y2%3D%220%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fdad64%22%2F%3E%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%23fe963b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ff7900%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20fill%3D%22url%28%23g%29%22%20d%3D%22M0%20586%20L124%20587%20L364%20121%20L371%20115%20L385%20114%20L394%20119%20L398%20124%20L401%20132%20L428%20184%20L433%20191%20L579%20474%20L339%20475%20L282%20587%20L761%20587%20L505%2092%20L486%2052%20L475%2036%20L453%2016%20L431%205%20L409%200%20L353%200%20L331%205%20L314%2013%20L301%2022%20L279%2046%20Z%20M841%200%20L1127%20274%20L800%20587%20L967%20587%20L1210%20355%20L1213%20356%20L1454%20587%20L1621%20587%20L1294%20274%20L1580%200%20L1414%200%20L1211%20194%20L1007%200%20Z%20M1745%200%20L1745%20587%20L1874%20587%20L1874%200%20Z%20M2074%2045%20L2055%2064%20L2042%2082%20L2030%20106%20L2022%20135%20L2022%20213%20L2026%20229%20L2031%20243%20L2041%20263%20L2056%20284%20L2074%20302%20L2096%20318%20L2125%20333%20L2153%20343%20L2192%20351%20L2450%20351%20L2462%20353%20L2482%20362%20L2490%20369%20L2496%20377%20L2503%20396%20L2504%20422%20L2500%20438%20L2495%20448%20L2482%20462%20L2466%20471%20L2443%20477%20L2071%20477%20L2067%20483%20L2056%20512%20L2053%20516%20L2047%20533%20L2023%20587%20L2452%20586%20L2489%20579%20L2525%20566%20L2542%20557%20L2558%20546%20L2582%20523%20L2593%20508%20L2604%20488%20L2614%20458%20L2615%20374%20L2606%20344%20L2596%20324%20L2581%20303%20L2557%20280%20L2531%20263%20L2505%20251%20L2484%20244%20L2445%20236%20L2187%20236%20L2175%20234%20L2155%20225%20L2147%20218%20L2141%20210%20L2134%20191%20L2133%20165%20L2137%20149%20L2142%20139%20L2154%20126%20L2171%20116%20L2194%20110%20L2537%20110%20L2584%200%20L2195%200%20L2161%205%20L2129%2014%20L2102%2026%20Z%22%2F%3E%3C%2Fsvg%3E" alt="لوگوی اکسیس"></div><div class="sub">سیستم محاسبه سفارش و قیمت‌گذاری</div></div><div class="toolbar"><button class="dark iconbtn" id="operatorToggle" onclick="toggleOperatorPanel()" title="لیست اپراتور پرینت" aria-label="لیست اپراتور پرینت" aria-expanded="false">▤</button><button class="dark iconbtn" id="invoiceToggle" onclick="toggleInvoicePanel()" title="پیش‌نمایش فاکتور" aria-label="پیش‌نمایش فاکتور" aria-expanded="false">▧</button><button class="dark iconbtn" id="updateCustomerDateBtn" onclick="axisUpdateCustomerDate()" title="بروزرسانی تاریخ آخرین سفارش مشتری" aria-label="بروزرسانی تاریخ مشتری">📅</button><button class="dark iconbtn" id="updateCustomerDebtBtn" onclick="axisUpdateCustomerDebt()" title="بروزرسانی بدهی مشتری (نمایش در فاکتور)" aria-label="بروزرسانی بدهی مشتری">💰</button><button class="dark iconbtn" id="customerToggle" onclick="toggleCustomerPanel()" title="اطلاعات سفارش‌دهنده" aria-label="اطلاعات سفارش‌دهنده" aria-expanded="false">👤</button><button class="dark iconbtn" id="addToggle" onclick="toggleProductPanel()" title="افزودن محصول به سفارش" aria-label="افزودن محصول به سفارش" aria-expanded="false">+</button><button class="dark iconbtn" id="importToggle" onclick="toggleImportPanel()" title="آپلود یا بروزرسانی اطلاعات" aria-label="آپلود یا بروزرسانی اطلاعات" aria-expanded="false">⇧</button><button class="dark" onclick="restoreAllProducts()">↻ بازیابی کامل محصولات</button><button class="dark" onclick="document.getElementById('quickProductFile').click()">⇧ محصولات</button><input id="quickProductFile" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="importQuickProducts(this.files[0])"><button class="dark" onclick="newInvoice()">فاکتور جدید</button><button class="dark iconbtn" onclick="showDashboard()" title="بازگشت به صفحه اصلی" aria-label="بازگشت به صفحه اصلی">⌂</button></div></header>
 <div id="customerPanel" class="import-panel"><section class="card"><h2>اطلاعات سفارش‌دهنده</h2><div class="form"><div class="full"><label class="title">جستجو و انتخاب مشتری ثبت‌شده</label><input id="customerSearch" type="search" placeholder="نام یا شماره تماس مشتری..." oninput="fillSavedCustomerSelect()"><select id="savedCustomerSelect" onchange="selectSavedCustomer(this.value)" style="margin-top:7px"><option value="">انتخاب مشتری</option></select></div><div><label class="title">نام و نام خانوادگی</label><input id="customerName" type="text" placeholder="نام مشتری"></div><div><label class="title">شماره تماس</label><input id="customerPhone" type="tel" inputmode="tel" placeholder="مثلاً ۰۹۱۲۱۲۳۴۵۶۷"></div><div><label class="title">تاریخ سفارش</label><input id="orderDate" type="text" inputmode="numeric" placeholder="۱۴۰۵/۰۵/۱۶"></div><div><label class="title">شماره فاکتور</label><input id="invoiceNumber" type="text" placeholder="مثلاً ۵۰۸۰۶۰۱"></div><div class="full"><label class="title">آدرس</label><textarea id="customerAddress" rows="2" placeholder="آدرس کامل مشتری" style="resize:vertical"></textarea></div></div><p class="info">این اطلاعات همراه با سفارش در همین صفحه نگه‌داری می‌شود.</p></section></div>
 
 <div id="importPanel" class="import-panel"><section class="card" id="importCard"><h2>بروزرسانی اطلاعات از فایل یا Google Drive</h2><div class="form"><div><label class="title">دریافت فایل Excel جدید</label><input id="excelFile" type="file" accept=".xlsx,.xls,.csv" onchange="importExcelFile(this.files[0])"></div><div class="full" style="display:flex;gap:9px;align-items:center"><button class="dark" onclick="importAllCatalogSheets()">بروزرسانی کامل از Google Drive</button><span class="info">اطلاعات از فایل Google Drive تعیین‌شده دریافت می‌شود. ستون‌های محصول و فیلامنت به‌صورت خودکار تشخیص داده می‌شوند.</span></div></div></section><div class="card" id="syncCard" style="padding:13px 20px"><div class="info" id="syncStatus">فایل جدید انتخاب کنید یا لینک Google Drive را وارد کنید.</div></div></div>
@@ -294,8 +395,8 @@ body.light #accountingWorkspace .portfolio-stats>div.debt b{color:#a84b00!import
 </div><p class="info">سطح قیمت ابتدا توسط کاربر انتخاب می‌شود و سپس قیمت همان ستون از فایل شما برای محاسبه سفارش استفاده می‌شود.</p></section></div>
 
 <section class="card" id="orderListCard"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px"><h2 style="margin:0">لیست سفارش</h2><button class="dark" type="button" onclick="clearOrderList()">پاک کردن لیست</button></div><div class="cart-table-wrap"><table class="cart-table"><thead><tr><th>کد</th><th>محصول / توضیحات</th><th>تعداد</th><th>رده قیمت</th><th>مبلغ واحد</th><th>زمان کل</th><th>وزن کل</th><th>هزینه مواد اولیه</th><th>مبلغ فروش</th><th>سود خالص</th><th></th></tr></thead><tbody id="orderRows"><tr><td colspan="11" class="empty-cart">هنوز محصولی به لیست سفارش اضافه نشده است.</td></tr></tbody><tfoot id="orderTotals"></tfoot></table></div><p class="info">سود خالص در این صفحه برابر است با مبلغ فروش منهای هزینه مواد اولیه. هزینه‌های دیگر مانند نیروی کار، برق و بسته‌بندی در آن لحاظ نشده‌اند.</p></section>
-<div id="invoicePanel" class="import-panel"><section class="card" id="invoicePreviewCard"><h2>پیش‌نمایش فاکتور</h2><div class="invoice-paper" id="invoicePaper"><div class="invoice-top"><div class="invoice-title">فاکتور فروش</div><div class="invoice-meta">تاریخ: <span id="invDate"></span><br>شماره سریال: <span id="invNumber"></span><br>کیفیت چاپ: <span id="invQuality"></span></div></div><table class="invoice-grid"><tr><th colspan="4">مشخصات فروشنده</th></tr><tr><td class="label">نام شخص حقیقی / حقوقی</td><td>آکسیس</td><td class="label">تلفن</td><td dir="ltr">09218761889</td></tr><tr><th colspan="4">مشخصات خریدار</th></tr><tr><td class="label">نام شخص حقیقی / حقوقی</td><td id="invCustomer"></td><td class="label">تلفن</td><td id="invPhone" dir="ltr"></td></tr><tr><td class="label">نشانی</td><td colspan="3" id="invAddress"></td></tr><tr><th colspan="4">مشخصات کالا</th></tr></table><table class="invoice-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>نام کالا</th><th>تعداد</th><th>مبلغ واحد (تومان)</th><th>مبلغ کل (تومان)</th></tr></thead><tbody id="invoiceItems"></tbody><tfoot><tr class="invoice-total"><td colspan="5">جمع کل</td><td id="invTotal"></td></tr></tfoot></table><div class="invoice-bank">توضیحات: <span id="invNotes"></span><br>بدهی پیشین: <span id="invPreviousDebt"></span><br>جمع قابل پرداخت این فاکتور: <span id="invDebt"></span><br>شماره شبا: <span dir="ltr">IR140170000000240990077001</span> | شماره کارت: <span dir="ltr">6037998188248222</span><br>به نام علی پزشک مفرنقاه</div><div class="invoice-sign"><span>امضاء تحویل دهنده:</span><span>امضاء تحویل گیرنده:</span></div></div><div class="download-image-wrap"><button class="download-image" onclick="downloadPagedImages('invoicePaper','پیش-فاکتور')">⇩&nbsp; دانلود پیش‌فاکتور به‌صورت عکس</button></div></section></div>
-<div id="operatorPanel" class="import-panel"><section class="card"><h2>لیست اپراتور پرینت</h2><div class="operator-sheet" id="operatorSheet"><div class="operator-head"><div><b>AXIS · برگه تولید</b><div class="operator-meta">فاکتور: <span id="opInvoice"></span> &nbsp; | &nbsp; مشتری: <span id="opCustomer"></span></div></div><div class="operator-meta">تاریخ: <span id="opDate"></span><br>کیفیت چاپ: <span id="opQuality"></span><br>آیتم‌ها برای آماده‌سازی چاپ</div></div><table class="operator-table"><thead><tr><th>ردیف</th><th>کد محصول</th><th>نام محصول</th><th>تعداد</th><th>وزن کل</th><th>زمان کل</th><th>توضیحات اپراتور</th></tr></thead><tbody id="operatorRows"></tbody><tfoot id="operatorTotals"></tfoot></table></div><div class="download-image-wrap"><button class="download-image" onclick="downloadPagedImages('operatorSheet','لیست-اپراتور')">⇩&nbsp; دانلود لیست اپراتور به‌صورت عکس</button></div></section></div>
+<div id="invoicePanel" class="import-panel"><section class="card" id="invoicePreviewCard"><h2>پیش‌نمایش فاکتور</h2><div class="invoice-paper" id="invoicePaper"><div class="invoice-top"><div class="invoice-logo"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%222616%22%20height%3D%22588%22%20viewBox%3D%220%200%202616%20588%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%222616%22%20y2%3D%220%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fdad64%22%2F%3E%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%23fe963b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ff7900%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20fill%3D%22url%28%23g%29%22%20d%3D%22M0%20586%20L124%20587%20L364%20121%20L371%20115%20L385%20114%20L394%20119%20L398%20124%20L401%20132%20L428%20184%20L433%20191%20L579%20474%20L339%20475%20L282%20587%20L761%20587%20L505%2092%20L486%2052%20L475%2036%20L453%2016%20L431%205%20L409%200%20L353%200%20L331%205%20L314%2013%20L301%2022%20L279%2046%20Z%20M841%200%20L1127%20274%20L800%20587%20L967%20587%20L1210%20355%20L1213%20356%20L1454%20587%20L1621%20587%20L1294%20274%20L1580%200%20L1414%200%20L1211%20194%20L1007%200%20Z%20M1745%200%20L1745%20587%20L1874%20587%20L1874%200%20Z%20M2074%2045%20L2055%2064%20L2042%2082%20L2030%20106%20L2022%20135%20L2022%20213%20L2026%20229%20L2031%20243%20L2041%20263%20L2056%20284%20L2074%20302%20L2096%20318%20L2125%20333%20L2153%20343%20L2192%20351%20L2450%20351%20L2462%20353%20L2482%20362%20L2490%20369%20L2496%20377%20L2503%20396%20L2504%20422%20L2500%20438%20L2495%20448%20L2482%20462%20L2466%20471%20L2443%20477%20L2071%20477%20L2067%20483%20L2056%20512%20L2053%20516%20L2047%20533%20L2023%20587%20L2452%20586%20L2489%20579%20L2525%20566%20L2542%20557%20L2558%20546%20L2582%20523%20L2593%20508%20L2604%20488%20L2614%20458%20L2615%20374%20L2606%20344%20L2596%20324%20L2581%20303%20L2557%20280%20L2531%20263%20L2505%20251%20L2484%20244%20L2445%20236%20L2187%20236%20L2175%20234%20L2155%20225%20L2147%20218%20L2141%20210%20L2134%20191%20L2133%20165%20L2137%20149%20L2142%20139%20L2154%20126%20L2171%20116%20L2194%20110%20L2537%20110%20L2584%200%20L2195%200%20L2161%205%20L2129%2014%20L2102%2026%20Z%22%2F%3E%3C%2Fsvg%3E" alt="لوگوی اکسیس"></div><div class="invoice-title">فاکتور فروش</div><div class="invoice-meta">تاریخ: <span id="invDate"></span><br>شماره سریال: <span id="invNumber"></span><br>کیفیت چاپ: <span id="invQuality"></span></div></div><table class="invoice-grid"><tr><th colspan="4">مشخصات فروشنده</th></tr><tr><td class="label">نام شخص حقیقی / حقوقی</td><td>آکسیس</td><td class="label">تلفن</td><td dir="ltr">09218761889</td></tr><tr><th colspan="4">مشخصات خریدار</th></tr><tr><td class="label">نام شخص حقیقی / حقوقی</td><td id="invCustomer"></td><td class="label">تلفن</td><td id="invPhone" dir="ltr"></td></tr><tr><td class="label">نشانی</td><td colspan="3" id="invAddress"></td></tr><tr><th colspan="4">مشخصات کالا</th></tr></table><table class="invoice-table"><thead><tr><th>ردیف</th><th>کد کالا</th><th>نام کالا</th><th>تعداد</th><th>مبلغ واحد (تومان)</th><th>مبلغ کل (تومان)</th></tr></thead><tbody id="invoiceItems"></tbody><tfoot><tr class="invoice-total"><td colspan="5">جمع کل</td><td id="invTotal"></td></tr></tfoot></table><div class="invoice-bank">توضیحات: <span id="invNotes"></span><br>بدهی پیشین: <span id="invPreviousDebt"></span><br>جمع قابل پرداخت این فاکتور: <span id="invDebt"></span><br>شماره شبا: <span dir="ltr">IR140170000000240990077001</span> | شماره کارت: <span dir="ltr">6037998188248222</span><br>به نام علی پزشک مفرنقاه</div><div class="invoice-sign"><span>امضاء تحویل دهنده:</span><span>امضاء تحویل گیرنده:</span></div></div><div class="download-image-wrap"><button class="download-image" onclick="downloadPagedImages('invoicePaper','پیش-فاکتور')">⇩&nbsp; دانلود پیش‌فاکتور به‌صورت عکس</button></div></section></div>
+<div id="operatorPanel" class="import-panel"><section class="card"><h2>لیست اپراتور پرینت</h2><div class="operator-sheet" id="operatorSheet"><div class="operator-head"><div><div class="operator-brand"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%222616%22%20height%3D%22588%22%20viewBox%3D%220%200%202616%20588%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%222616%22%20y2%3D%220%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fdad64%22%2F%3E%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%23fe963b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ff7900%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20fill%3D%22url%28%23g%29%22%20d%3D%22M0%20586%20L124%20587%20L364%20121%20L371%20115%20L385%20114%20L394%20119%20L398%20124%20L401%20132%20L428%20184%20L433%20191%20L579%20474%20L339%20475%20L282%20587%20L761%20587%20L505%2092%20L486%2052%20L475%2036%20L453%2016%20L431%205%20L409%200%20L353%200%20L331%205%20L314%2013%20L301%2022%20L279%2046%20Z%20M841%200%20L1127%20274%20L800%20587%20L967%20587%20L1210%20355%20L1213%20356%20L1454%20587%20L1621%20587%20L1294%20274%20L1580%200%20L1414%200%20L1211%20194%20L1007%200%20Z%20M1745%200%20L1745%20587%20L1874%20587%20L1874%200%20Z%20M2074%2045%20L2055%2064%20L2042%2082%20L2030%20106%20L2022%20135%20L2022%20213%20L2026%20229%20L2031%20243%20L2041%20263%20L2056%20284%20L2074%20302%20L2096%20318%20L2125%20333%20L2153%20343%20L2192%20351%20L2450%20351%20L2462%20353%20L2482%20362%20L2490%20369%20L2496%20377%20L2503%20396%20L2504%20422%20L2500%20438%20L2495%20448%20L2482%20462%20L2466%20471%20L2443%20477%20L2071%20477%20L2067%20483%20L2056%20512%20L2053%20516%20L2047%20533%20L2023%20587%20L2452%20586%20L2489%20579%20L2525%20566%20L2542%20557%20L2558%20546%20L2582%20523%20L2593%20508%20L2604%20488%20L2614%20458%20L2615%20374%20L2606%20344%20L2596%20324%20L2581%20303%20L2557%20280%20L2531%20263%20L2505%20251%20L2484%20244%20L2445%20236%20L2187%20236%20L2175%20234%20L2155%20225%20L2147%20218%20L2141%20210%20L2134%20191%20L2133%20165%20L2137%20149%20L2142%20139%20L2154%20126%20L2171%20116%20L2194%20110%20L2537%20110%20L2584%200%20L2195%200%20L2161%205%20L2129%2014%20L2102%2026%20Z%22%2F%3E%3C%2Fsvg%3E" alt="لوگوی اکسیس"><b>برگه تولید</b></div><div class="operator-meta">فاکتور: <span id="opInvoice"></span> &nbsp; | &nbsp; مشتری: <span id="opCustomer"></span></div></div><div class="operator-meta">تاریخ: <span id="opDate"></span><br>کیفیت چاپ: <span id="opQuality"></span><br>آیتم‌ها برای آماده‌سازی چاپ</div></div><table class="operator-table"><thead><tr><th>ردیف</th><th>کد محصول</th><th>نام محصول</th><th>تعداد</th><th>وزن کل</th><th>زمان کل</th><th>توضیحات اپراتور</th></tr></thead><tbody id="operatorRows"></tbody><tfoot id="operatorTotals"></tfoot></table></div><div class="download-image-wrap"><button class="download-image" onclick="downloadPagedImages('operatorSheet','لیست-اپراتور')">⇩&nbsp; دانلود لیست اپراتور به‌صورت عکس</button></div></section></div>
 <div class="submit-order-bar"><button onclick="submitOrder()">✓&nbsp; ثبت سفارش</button></div>
 </div><div class="status-dock" aria-label="وضعیت سیستم"><span class="status-item"><span id="internetDot" class="status-dot"></span><span class="status-label">اتصال اینترنت</span></span><span class="status-item"><span id="driveDot" class="status-dot"></span><span class="status-label">دسترسی به Google Drive</span></span><span class="status-item"><span id="saveDot" class="status-dot"></span><span class="status-label">وضعیت ذخیره اطلاعات</span></span></div><div id="appNotification" class="app-notification" role="status"></div><div id="welcomeToast" class="welcome-toast"><b id="welcomeTitle"></b><span id="welcomeText"></span><em id="welcomeAuthor"></em></div>
 <div class="price-modal" id="priceTierModal"><div class="price-modal-box"><button class="price-modal-close" onclick="closePriceTierModal()">×</button><h3>انتخاب رده قیمت</h3><div id="priceTierOptions"></div><label>قیمت دستی (تومان)</label><input id="manualTierPrice" inputmode="numeric" placeholder="قیمت دستی"><button class="download-image" onclick="applyManualTierPrice()">ثبت قیمت دستی</button></div></div><div class="axis-modal-overlay" id="customerStatementModal" style="display:none" onclick="if(event.target===this)closeCustomerStatementModal()"><div class="axis-modal" style="width:min(940px,100%);max-height:calc(100vh - 40px);padding:0;overflow:hidden;display:flex;flex-direction:column"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line)"><h3 style="margin:0;font-size:15.5px;display:flex;align-items:center;gap:7px"><span style="color:var(--orange)">📄</span> صورت‌حساب مشتری</h3><div style="flex:1"></div><select id="stmtTypeFilter" onchange="renderCustomerStatementSheet()" title="فیلتر نوع ردیف‌ها" style="background:var(--dark);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-family:inherit;font-size:13px;cursor:pointer"><option value="all">همه موارد</option><option value="orders">🛒 فقط سفارش‌ها</option><option value="payments">💳 فقط واریزی‌ها</option></select><input id="stmtStartDate" type="text" inputmode="numeric" placeholder="از تاریخ ۱۴۰۵/۰۱/۰۱" oninput="renderCustomerStatementSheet()" style="width:122px"><input id="stmtEndDate" type="text" inputmode="numeric" placeholder="تا تاریخ ۱۴۰۵/۱۲/۲۹" oninput="renderCustomerStatementSheet()" style="width:122px"><button type="button" class="dark" onclick="downloadCustomerStatementImage()" title="دانلود تصویر صورت‌حساب">⇩ تصویر</button><button type="button" class="dark" onclick="window.print()" title="چاپ برگه صورت‌حساب">🖨 چاپ</button><button type="button" onclick="closeCustomerStatementModal()" title="بستن" style="background:transparent;border:0;color:var(--muted);font-size:24px;line-height:1;cursor:pointer;padding:2px 8px">×</button></div><div id="customerStatementSheetContainer" style="padding:16px;overflow:auto"></div></div></div><script>
@@ -308,10 +409,10 @@ function catalogMaterials(){const arr=axisMaterialsV2().filter(m => (+m.qty||0) 
 function postViaAppsScript(url,data){const fname="axisCloudFrame_"+Date.now()+"_"+Math.floor(Math.random()*99999);const frame=document.createElement("iframe");frame.name=fname;frame.style.display="none";document.body.appendChild(frame);const form=document.createElement("form");form.method="POST";form.action=url;form.target=fname;form.style.display="none";const input=document.createElement("input");input.name="payload";input.value=JSON.stringify(data);form.appendChild(input);document.body.appendChild(form);form.submit();setTimeout(()=>{try{form.remove();frame.remove()}catch(e){}},1200)}
 async function syncProductCatalog(silent=true){try{postViaAppsScript(PRODUCT_CATALOG_ENDPOINT,{type:"catalog",products,materials:catalogMaterialsFull()});setSystemStatus("saveDot",true,"کاتالوگ محصولات برای ذخیره ابری ارسال شد");if(!silent)showNotification("تغییرات محصولات برای ذخیره ابری ارسال شد.",true)}catch(e){if(!silent)showNotification("ارسال کاتالوگ محصولات ناموفق بود.",false)}}
 async function loadProductCatalog(){try{const _lp=JSON.parse(localStorage.getItem("axisProducts")||"[]");if(Array.isArray(_lp)&&_lp.length){products=_lp;return}const data=await jsonpRequest(PRODUCT_CATALOG_ENDPOINT+"?action=catalog&t="+Date.now());if(!data.ok)throw new Error();if(data.products?.length){products=data.products.filter(p=>p&&String(p.name||'').trim()&&String(p.code||'').trim());localStorage.setItem("axisProducts",JSON.stringify(products))}if(data.materials?.length){const rings={"حلقه جاسویچی ساده":"RING_COST","حلقه جاسویچی رنگی":"RING_COLOR_COST","حلقه آویز":"RING_CHARM_COST"};const v2=axisMaterialsV2().slice();const matKey=function(n){return String(n||'').replace(/[۰-۹]/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)}).replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)}).replace(/[\s\u200c\u064B-\u0655]/g,'').toLowerCase()};data.materials.forEach(m=>{if(!m||!m.name)return;const nm=String(m.name).trim();if(nm in rings||matKey(nm) in {'حلقهجاسویچیساده':1,'حلقهجاسویچیرنگی':1,'حلقهآویز':1}){if(matKey(nm)==='حلقهجاسویچیساده')RING_COST=Number(m.price);if(matKey(nm)==='حلقهجاسویچیرنگی')RING_COLOR_COST=Number(m.price);if(matKey(nm)==='حلقهآویز')RING_CHARM_COST=Number(m.price);return}if(/^[0-9.]+$/.test(matKey(nm)))return;const i=v2.findIndex(x=>matKey(x.name)===matKey(nm));const known=AXIS_KNOWN_MATERIALS[matKey(nm)];if(i>-1){if(Number(m.price)>0)v2[i].price=Number(m.price);if(v2[i].name!==nm)v2[i].name=nm;if(known&&(v2[i].brand===undefined||v2[i].brand==='')&&known.brand){v2[i].brand=known.brand||'';v2[i].type=known.type||'';v2[i].color=known.color||''}const lq=(v2[i].qty===undefined||v2[i].qty===null)?0:+v2[i].qty||0;if(!lq&&Number(m.qty)>0){v2[i].qty=Number(m.qty);v2[i].unit=m.unit||v2[i].unit||''}}else v2.push({id:'mat_c_'+Date.now()+'_'+Math.floor(Math.random()*9999),name:nm,category:(m.category||'filament'),brand:m.brand||(known?known.brand:'')||'',type:m.type||(known?known.type:'')||'',color:m.color||(known?known.color:'')||'',price:Number(m.price)||(known?known.price:0)||0,qty:Number(m.qty)||0,unit:m.unit||''})});writeLs('axisMaterialsV2',v2);try{axisRecalculateAllProductPrices()}catch(e){}}try{fillProducts();renderProductManagement()}catch(e){};setSystemStatus("saveDot",true,"کاتالوگ محصولات بازیابی شد")}catch(e){setSystemStatus("driveDot",false,"اتصال کاتالوگ محصولات ناموفق بود")}}
-function buildBackupPayload(){return {type:"backup",orders:JSON.parse(localStorage.getItem("axisOrders")||"[]"),customers:savedCustomers? savedCustomers():[],payments:JSON.parse(localStorage.getItem("axisPayments")||"[]"),socialOrders:JSON.parse(localStorage.getItem("axisSocialOrders")||"[]"),socialCustomers:JSON.parse(localStorage.getItem("axisSocialCustomers")||"[]"),productCategories:JSON.parse(localStorage.getItem("axisProductCategories")||"[]"),products:products}}
+function buildBackupPayload(){return {type:"backup",orders:JSON.parse(localStorage.getItem("axisOrders")||"[]"),customers:savedCustomers? savedCustomers():[],payments:JSON.parse(localStorage.getItem("axisPayments")||"[]"),socialOrders:JSON.parse(localStorage.getItem("axisSocialOrders")||"[]"),socialCustomers:JSON.parse(localStorage.getItem("axisSocialCustomers")||"[]"),productCategories:JSON.parse(localStorage.getItem("axisProductCategories")||"[]"),products:products,cashRegister:{version:1,settings:axisCashReadSettings(),entries:axisCashReadEntries()}}}
 function manualBackup(){syncCloudBackup(false)}
 function isAppsScriptHost(){return typeof google!=="undefined"&&google.script&&google.script.run}
-function applyCloudBackup(data,force=false){if(data.orders)localStorage.setItem("axisOrders",JSON.stringify(data.orders||[]));if(data.customers)localStorage.setItem("axisCustomers",JSON.stringify(data.customers||[]));if(data.payments)localStorage.setItem("axisPayments",JSON.stringify(data.payments||[]));if(data.socialOrders)localStorage.setItem("axisSocialOrders",JSON.stringify(data.socialOrders||[]));if(data.socialCustomers)localStorage.setItem("axisSocialCustomers",JSON.stringify(data.socialCustomers||[]));if(data.productCategories)localStorage.setItem("axisProductCategories",JSON.stringify(data.productCategories||[]));if(Array.isArray(data.products)&&data.products.length){const _lp=JSON.parse(localStorage.getItem("axisProducts")||"[]");if(force||!_lp.length){products=data.products;localStorage.setItem("axisProducts",JSON.stringify(products))}}localStorage.setItem("axisLastBackup",JSON.stringify(data));setTimeout(()=>{try{renderManagement();renderCustomers();renderAccounting();renderSocialOrders()}catch(e){}},0)}
+function applyCloudBackup(data,force=false){if(data.cashRegister&&axisCashBackupValid({schema:'AXIS_FINANCE_1',cashRegister:data.cashRegister}))axisCashWriteRegister(data.cashRegister.settings,data.cashRegister.entries);if(data.orders)localStorage.setItem("axisOrders",JSON.stringify(data.orders||[]));if(data.customers)localStorage.setItem("axisCustomers",JSON.stringify(data.customers||[]));if(data.payments)localStorage.setItem("axisPayments",JSON.stringify(data.payments||[]));if(data.socialOrders)localStorage.setItem("axisSocialOrders",JSON.stringify(data.socialOrders||[]));if(data.socialCustomers)localStorage.setItem("axisSocialCustomers",JSON.stringify(data.socialCustomers||[]));if(data.productCategories)localStorage.setItem("axisProductCategories",JSON.stringify(data.productCategories||[]));if(Array.isArray(data.products)&&data.products.length){const _lp=JSON.parse(localStorage.getItem("axisProducts")||"[]");if(force||!_lp.length){products=data.products;localStorage.setItem("axisProducts",JSON.stringify(products))}}localStorage.setItem("axisLastBackup",JSON.stringify(data));setTimeout(()=>{try{renderManagement();renderCustomers();renderAccounting();renderSocialOrders()}catch(e){}},0)}
 function jsonpRequest(url,ms){return new Promise((resolve,reject)=>{const cb="axisJsonp_"+Date.now()+"_"+Math.floor(Math.random()*9999),script=document.createElement("script"),timer=setTimeout(()=>cleanup(new Error("Timeout")),(ms||45000));function cleanup(err){clearTimeout(timer);delete window[cb];script.remove();err?reject(err):0}window[cb]=data=>{cleanup();resolve(data)};script.src=url+(url.includes("?")?"&":"?")+"callback="+cb;script.onerror=()=>cleanup(new Error("Network error"));document.head.appendChild(script)})}
 async function restoreCloudBackup(silent=false){try{let data;if(isAppsScriptHost()){data=await new Promise((resolve,reject)=>google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).loadAxisBackup())}else{data=await jsonpRequest(BACKUP_ENDPOINT+"?action=restore&t="+Date.now())}if(!data.ok)throw new Error(data.error||"Cloud response error");const count=(data.orders||[]).length+(data.customers||[]).length+(data.payments||[]).length+(data.socialOrders||[]).length;if(!count){if(!silent)showNotification("بکاپ ابری خالی است؛ اطلاعات فعلی تغییری نکرد.",false);return false}applyCloudBackup(data,false);setSystemStatus("driveDot",true,"دسترسی به Google Drive: اطلاعات با موفقیت بازیابی شد");setSystemStatus("saveDot",true,"ذخیره و بروزرسانی اطلاعات: بازیابی ابری انجام شد");if(!silent)showNotification("اطلاعات با موفقیت از بکاپ ابری بازیابی شد.",true);return true}catch(e){setSystemStatus("driveDot",false,"دسترسی به Google Drive: بازیابی ناموفق بود");if(!silent)showNotification("بازیابی ابری ناموفق بود؛ نسخه محلی بررسی شد.",false);return false}}
 async function manualRestore(){try{let data=await jsonpRequest(BACKUP_ENDPOINT+"?action=restore&t="+Date.now());if(data&&data.ok){applyCloudBackup(data,true);showNotification("اطلاعات با موفقیت از بکاپ ابری بازیابی شد.",true);return}}catch(e){}const raw=localStorage.getItem("axisLastBackup");if(!raw){showNotification("نسخه بکاپ محلی برای بازیابی وجود ندارد.",false);return}if(!confirm("اطلاعات فعلی با آخرین نسخه بکاپ محلی جایگزین شود؟"))return;try{applyCloudBackup(JSON.parse(raw));showNotification("اطلاعات از آخرین نسخه بکاپ محلی بازیابی شد.",true)}catch(e){showNotification("بازیابی اطلاعات ناموفق بود.",false)}}
@@ -323,7 +424,26 @@ function updateDashboardClock(){const now=new Date();const time=new Intl.DateTim
 let activeCustomerKey=null;
 function showCustomerPortfolio(key){activeCustomerKey=key;document.getElementById("dashboard").style.display="none";document.getElementById("managementWorkspace").style.display="none";document.getElementById("orderWorkspace").style.display="none";document.getElementById("orderPortfolioWorkspace").style.display="none";document.getElementById("customersWorkspace").style.display="none";document.getElementById("portfolioWorkspace").style.display="block";document.getElementById("paymentDate").value=new Intl.DateTimeFormat("fa-IR-u-ca-persian",{year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());renderCustomerPortfolio();window.scrollTo({top:0,behavior:"smooth"})}
 function renderCustomerPortfolio(){const orders=JSON.parse(localStorage.getItem("axisOrders")||"[]").filter(o=>((o.customer?.phone||o.customer?.name||"").trim())===activeCustomerKey),payments=JSON.parse(localStorage.getItem("axisPayments")||"[]").filter(p=>p.customerKey===activeCustomerKey),sc=savedCustomers().find(x=>(x.phone||x.name)===activeCustomerKey)||{},c=Object.assign({},orders[0]?.customer||{},sc);const opening=Math.max(0,+(sc.openingDebt||0));const total=orders.reduce((n,o)=>n+Number(o.total||0),0),paid=payments.reduce((n,p)=>n+Number(p.amount||0),0);document.getElementById("portfolioName").textContent=c.name||"پرونده مشتری";document.getElementById("portfolioContact").textContent=`${c.phone||""} ${c.address?" | "+c.address:""}`;document.getElementById("portfolioOrdersTotal").textContent=fmt(total)+" تومان";document.getElementById("portfolioPaymentsTotal").textContent=fmt(paid)+" تومان";document.getElementById("portfolioDebt").textContent=fmt(opening+total-paid)+" تومان";document.getElementById("portfolioOpeningDebt").textContent=fmt(opening)+" تومان";document.getElementById("portfolioOrders").innerHTML=orders.length?orders.map(o=>`<tr><td>${escapeHtml(o.id)}</td><td>${escapeHtml(o.date||"")}</td><td>${fmt(o.total)} تومان</td><td>${fmt(o.items.reduce((n,x)=>n+Number(x.printedQty||0),0))} / ${fmt(o.items.reduce((n,x)=>n+Number(x.qty||0),0))}</td></tr>`).join(""):'<tr><td colspan="4" class="empty-cart">سفارشی ثبت نشده است.</td></tr>';document.getElementById("portfolioPayments").innerHTML=payments.length?payments.map(p=>`<tr><td>${escapeHtml(p.date)}</td><td>${fmt(p.amount)} تومان</td><td>${escapeHtml(p.note||"—")}</td></tr>`).join(""):'<tr><td colspan="3" class="empty-cart">پرداختی ثبت نشده است.</td></tr>'}
-function addPayment(){const amount=faNumber(document.getElementById("paymentAmount").value);if(!amount){alert("مبلغ پرداختی را وارد کنید.");return}const orders=JSON.parse(localStorage.getItem("axisOrders")||"[]"),allocations=[];let remaining=amount;orders.forEach((o,index)=>{const key=o.customer?.phone||o.customer?.name||"";if(key!==activeCustomerKey||remaining<=0)return;const due=Math.max(0,Number(o.total||0)-Number(o.paidAmount||0));if(!due)return;const applied=Math.min(remaining,due);o.paidAmount=Number(o.paidAmount||0)+applied;remaining-=applied;allocations.push({invoice:o.id,amount:applied});orders[index]=o});localStorage.setItem("axisOrders",JSON.stringify(orders));const list=JSON.parse(localStorage.getItem("axisPayments")||"[]");list.push({customerKey:activeCustomerKey,amount,date:document.getElementById("paymentDate").value,note:document.getElementById("paymentNote").value.trim(),allocations,credit:remaining});localStorage.setItem("axisPayments",JSON.stringify(list));syncCloudBackup(true);document.getElementById("paymentAmount").value="";document.getElementById("paymentNote").value="";setSystemStatus("saveDot",true,"ذخیره و بروزرسانی اطلاعات: پرداختی مشتری ذخیره شد");renderCustomerPortfolio()}
+function addPayment(){
+  const amount=faNumber(document.getElementById('paymentAmount').value),date=String(document.getElementById('paymentDate').value||'').trim();
+  if(!Number.isFinite(amount)||amount<=0||amount>Number.MAX_SAFE_INTEGER){alert('مبلغ پرداختی معتبر را وارد کنید.');return}
+  if(!axisSocialDateParts(date)){alert('تاریخ پرداخت معتبر وارد کنید.');return}
+  if(!axisCashWarnPaymentDate(date))return;
+  const orders=JSON.parse(localStorage.getItem('axisOrders')||'[]'),allocations=[];let remaining=amount;
+  orders.forEach(function(o,index){
+    const key=(o.customer&&(o.customer.phone||o.customer.name))||'';if(key!==activeCustomerKey||remaining<=0)return;
+    const due=Math.max(0,Number(o.total||0)-Number(o.paidAmount||0));if(!due)return;
+    const applied=Math.min(remaining,due);o.paidAmount=Number(o.paidAmount||0)+applied;remaining-=applied;allocations.push({invoice:o.id,amount:applied});orders[index]=o;
+  });
+  const oldOrders=localStorage.getItem('axisOrders'),oldPayments=localStorage.getItem('axisPayments');
+  const list=JSON.parse(oldPayments||'[]');
+  list.push({id:axisCashUniqueId('AXP'),customerKey:activeCustomerKey,amount:amount,date:date,note:document.getElementById('paymentNote').value.trim(),allocations:allocations,credit:remaining});
+  try{localStorage.setItem('axisOrders',JSON.stringify(orders));localStorage.setItem('axisPayments',JSON.stringify(list))}
+  catch(e){try{if(oldOrders===null)localStorage.removeItem('axisOrders');else localStorage.setItem('axisOrders',oldOrders);if(oldPayments===null)localStorage.removeItem('axisPayments');else localStorage.setItem('axisPayments',oldPayments)}catch(ignore){}alert('ثبت پرداخت انجام نشد. فضای ذخیره‌سازی مرورگر را بررسی کنید.');return}
+  syncCloudBackup(true);
+  document.getElementById('paymentAmount').value='';document.getElementById('paymentNote').value='';
+  setSystemStatus('saveDot',true,'ذخیره و بروزرسانی اطلاعات: پرداختی مشتری ذخیره شد');renderCustomerPortfolio();
+}
 function editCustomer(key){const c=savedCustomers().find(x=>(x.phone||x.name)===key);if(!c)return;editingCustomerKey=key;document.getElementById("newCustomerName").value=c.name;document.getElementById("newCustomerPhone").value=c.phone;document.getElementById("newCustomerAddress").value=c.address;document.getElementById("customerAddPanel").classList.add("open");document.getElementById("customerAddToggle").setAttribute("aria-expanded","true")}
 function deleteCustomer(key){if(!confirm("این مشتری از فهرست مشتریان حذف شود؟"))return;const list=JSON.parse(localStorage.getItem("axisCustomers")||"[]").filter(c=>(c.phone||c.name)!==key);localStorage.setItem("axisCustomers",JSON.stringify(list));const deleted=JSON.parse(localStorage.getItem("axisDeletedCustomers")||"[]");if(!deleted.includes(key))deleted.push(key);localStorage.setItem("axisDeletedCustomers",JSON.stringify(deleted));renderCustomers();fillSavedCustomerSelect()}
 function savedCustomers(){const manual=JSON.parse(localStorage.getItem("axisCustomers")||"[]"),orders=JSON.parse(localStorage.getItem("axisOrders")||"[]").map(o=>o.customer||{});const map=new Map();[...manual,...orders].forEach(c=>{if(c&&(c.name||c.phone)){const k=c.phone||c.name,prev=map.get(k)||{};map.set(k,{name:c.name||prev.name||"",phone:c.phone||prev.phone||"",address:c.address||prev.address||"",openingDebt:c.openingDebt!==undefined?Math.max(0,+c.openingDebt||0):(prev.openingDebt||0),openingDebtDate:c.openingDebtDate!==undefined?c.openingDebtDate:(prev.openingDebtDate||""),openingDebtNote:c.openingDebtNote!==undefined?c.openingDebtNote:(prev.openingDebtNote||""),lastOrderDate:c.lastOrderDate!==undefined?c.lastOrderDate:(prev.lastOrderDate||""),debt:c.debt!==undefined?(+c.debt||0):(prev.debt||0)})}});const deleted=JSON.parse(localStorage.getItem("axisDeletedCustomers")||"[]");return [...map.entries()].filter(([k])=>!deleted.includes(k)).map(([,v])=>v)}
@@ -339,7 +459,7 @@ function setAccountingRange(range){accountingRange=range;document.querySelectorA
 function inAccountingRange(date){return axisAccountingDateInRange(date,accountingRange)}
 function deletePaymentTransaction(index){
   const payments=readLs('axisPayments',[]);if(!Array.isArray(payments)||!payments[index])return;
-  if(!confirm('این تراکنش پرداختی حذف شود؟'))return;
+  if(!axisCashConfirmRemoval('این تراکنش پرداختی حذف شود؟','main-payment',index))return;
   const removed=payments[index],orders=readLs('axisOrders',[]);
   if(Array.isArray(orders)&&Array.isArray(removed.allocations)){
     removed.allocations.forEach(function(a){
@@ -1240,8 +1360,501 @@ function axisAccountingBuildData(regularOrders,regularPayments,socialOrders,cust
   return {stats:stats,customers:Array.from(customers.values()),transactions:transactions};
 }
 
+function axisCashUniqueId(prefix){
+  return String(prefix||'AXC')+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,12);
+}
+
+function axisCashTodayJalali(){
+  const p=axisJalaliToday();return String(p.y)+'/'+String(p.m).padStart(2,'0')+'/'+String(p.d).padStart(2,'0');
+}
+
+function axisCashDayNumber(value){
+  const p=value&&typeof value==='object'&&value.y?value:axisSocialDateParts(value);
+  if(!p||!p.y||p.m<1||p.m>12||p.d<1||p.d>31)return null;
+  return p.y*10000+p.m*100+p.d;
+}
+
+function axisCashDateKey(value){
+  const p=axisSocialDateParts(value);
+  return p?String(p.y)+'/'+String(p.m).padStart(2,'0')+'/'+String(p.d).padStart(2,'0'):faToEn(String(value||'')).trim();
+}
+
+function axisCashCollectReceipts(mainPayments,socialOrders){
+  const events=[],legacy=Object.create(null);
+  (Array.isArray(mainPayments)?mainPayments:[]).forEach(function(p){
+    if(!p)return;const amount=axisSocialAmount(p.amount);if(!amount)return;
+    const id=String(p.id||''),key=id.indexOf('AXP_')===0?'main:id:'+id:'main:old:'+JSON.stringify([axisAccountingCustomerKey(p.customerKey,'',''),axisCashDateKey(p.date),amount,String(p.note||'')]);
+    events.push({key:key,amount:amount,date:p.date||'',source:'main'});
+  });
+  (Array.isArray(socialOrders)?socialOrders:[]).forEach(function(order,index){
+    if(!order)return;const orderId=String(order.id||('index-'+index));
+    axisSocialPaymentEntries(order).forEach(function(p){
+      const amount=axisSocialAmount(p.amount);if(!amount)return;
+      const legacySummary=!!p._axisLegacy||String(p.note||'')==='پرداخت پیشین؛ تاریخ پرداخت ثبت نشده است.';
+      if(legacySummary){
+        const key='social:legacy:'+orderId,old=legacy[key]||{amount:0,date:p.date||order.date||''};old.amount+=amount;legacy[key]=old;return;
+      }
+      const id=String(p.id||''),key=id.indexOf('AXP_')===0?'social:id:'+id:'social:old:'+JSON.stringify([orderId,axisCashDateKey(p.date),amount,String(p.note||'')]);
+      events.push({key:key,amount:amount,date:p.date||order.date||'',source:'social'});
+    });
+  });
+  return {events:events,legacy:legacy};
+}
+
+function axisCashMakeSettings(opening,mainPayments,socialOrders,cashEntries,startDate,startedAt){
+  const start=startDate||axisCashTodayJalali(),startDay=axisCashDayNumber(start),collected=axisCashCollectReceipts(mainPayments,socialOrders);
+  const counts=Object.create(null),legacy=Object.create(null),entryIds=[];
+  collected.events.forEach(function(e){const day=axisCashDayNumber(e.date);if(day!==null&&day>startDay)return;counts[e.key]=(counts[e.key]||0)+1});
+  Object.keys(collected.legacy).forEach(function(k){const e=collected.legacy[k],day=axisCashDayNumber(e.date);if(day!==null&&day>startDay)return;legacy[k]=e.amount});
+  (Array.isArray(cashEntries)?cashEntries:[]).forEach(function(e){if(!e||!e.id)return;const day=axisCashDayNumber(e.date);if(day!==null&&day>startDay)return;entryIds.push(String(e.id))});
+  return {version:1,opening:Math.round(opening),startDate:start,startedAt:startedAt||new Date().toISOString(),baselineCounts:counts,baselineLegacy:legacy,baselineCashIds:entryIds};
+}
+
+function axisCashSettingsValid(settings){
+  if(!settings||typeof settings!=='object'||settings.version!==1||!Number.isSafeInteger(Number(settings.opening))||Number(settings.opening)<0||axisCashDayNumber(settings.startDate)===null)return false;
+  const counts=settings.baselineCounts,legacy=settings.baselineLegacy,ids=settings.baselineCashIds;
+  if(!counts||typeof counts!=='object'||Array.isArray(counts)||!legacy||typeof legacy!=='object'||Array.isArray(legacy)||!Array.isArray(ids))return false;
+  if(!Object.keys(counts).every(function(k){return Number.isSafeInteger(Number(counts[k]))&&Number(counts[k])>=0}))return false;
+  if(!Object.keys(legacy).every(function(k){return Number.isFinite(Number(legacy[k]))&&Math.abs(Number(legacy[k]))<=Number.MAX_SAFE_INTEGER}))return false;
+  return ids.every(function(id){return typeof id==='string'&&id.length>0})&&new Set(ids).size===ids.length;
+}
+
+function axisCashReadSettings(){const x=readLs('axisCashSettings',null);return axisCashSettingsValid(x)?x:null}
+function axisCashReadEntries(){const x=readLs('axisCashEntries',[]);return Array.isArray(x)?x:[]}
+
+function axisCashCompute(settings,mainPayments,socialOrders,cashEntries,today){
+  if(!axisCashSettingsValid(settings))return {configured:false,opening:0,customerIn:0,manualIn:0,out:0,balance:null,skippedBefore:0,invalidDates:0,future:0};
+  const collected=axisCashCollectReceipts(mainPayments,socialOrders),counts=Object.assign(Object.create(null),settings.baselineCounts||{}),baselineLegacy=settings.baselineLegacy||{},ids=new Set(settings.baselineCashIds||[]);
+  const start=axisCashDayNumber(settings.startDate),end=axisCashDayNumber(today||axisJalaliToday());
+  const result={configured:true,opening:Number(settings.opening),customerIn:0,manualIn:0,out:0,balance:0,skippedBefore:0,invalidDates:0,future:0};
+  function eligible(date){
+    const day=axisCashDayNumber(date);
+    if(day===null){result.invalidDates++;return false}
+    if(day<start){result.skippedBefore++;return false}
+    if(day>end){result.future++;return false}
+    return true;
+  }
+  collected.events.forEach(function(e){
+    if((counts[e.key]||0)>0){counts[e.key]--;return}
+    if(eligible(e.date))result.customerIn+=e.amount;
+  });
+  Object.keys(collected.legacy).forEach(function(k){
+    const e=collected.legacy[k],delta=e.amount-(+baselineLegacy[k]||0);
+    if(delta>0.001&&eligible(e.date))result.customerIn+=delta;
+  });
+  (Array.isArray(cashEntries)?cashEntries:[]).forEach(function(e){
+    if(!e||!e.id||ids.has(String(e.id))||!eligible(e.date))return;
+    const amount=axisSocialAmount(e.amount);if(amount<=0)return;
+    if(e.kind==='deposit')result.manualIn+=amount;
+    else if(e.kind==='expense'||e.kind==='stock')result.out+=amount;
+  });
+  result.balance=result.opening+result.customerIn+result.manualIn-result.out;
+  return result;
+}
+
+function axisCashCurrent(){return axisCashCompute(axisCashReadSettings(),readLs('axisPayments',[]),readLs('axisSocialOrders',[]),axisCashReadEntries(),axisJalaliToday())}
+
+function axisCashAddTransactionRows(data,entries,range,now){
+  let seq=data.transactions.reduce(function(n,t){return Math.max(n,(+t.seq||0)+1)},0);
+  (Array.isArray(entries)?entries:[]).forEach(function(e,i){
+    if(!e||!axisAccountingDateInRange(e.date,range,now))return;
+    const amount=axisSocialAmount(e.amount);if(amount<=0)return;
+    const isDeposit=e.kind==='deposit',type=isDeposit?'واریز دستی':e.kind==='stock'?'خرید و ورود انبار':'مخارج';
+    let note=String(e.title||e.category||'');
+    if(e.stock&&e.stock.name){const displayQty=e.stock.purchaseQty!==undefined?e.stock.purchaseQty:e.stock.qty,displayUnit=e.stock.purchaseUnit||e.stock.unit||'';note+=(note?' · ':'')+e.stock.name+' ('+axisFaDigits(String(displayQty))+' '+displayUnit+')'}
+    if(e.note)note+=(note?' · ':'')+String(e.note);
+    data.transactions.push({date:e.date||'',type:type,customer:'—',invoice:'—',amount:isDeposit?amount:-amount,note:note,kind:'cash-entry',cashIndex:i,seq:seq++});
+  });
+  function sortDate(value){const p=axisSocialDateParts(value);if(!p)return -Infinity;const d=jalaliDateToJs(p.y+'/'+p.m+'/'+p.d);return d?d.getTime():-Infinity}
+  data.transactions.sort(function(a,b){return (sortDate(b.date)-sortDate(a.date))||a.seq-b.seq});
+}
+
+let axisCashSetupEsc=null,axisCashEntryEsc=null,axisCashReturnToEntry=false,axisCashEntryKind='expense';
+
+function axisCashWriteRegister(settings,entries){
+  const oldSettings=localStorage.getItem('axisCashSettings'),oldEntries=localStorage.getItem('axisCashEntries');
+  try{
+    if(settings)localStorage.setItem('axisCashSettings',JSON.stringify(settings));else localStorage.removeItem('axisCashSettings');
+    localStorage.setItem('axisCashEntries',JSON.stringify(entries||[]));return true;
+  }catch(e){
+    try{if(oldSettings===null)localStorage.removeItem('axisCashSettings');else localStorage.setItem('axisCashSettings',oldSettings);if(oldEntries===null)localStorage.removeItem('axisCashEntries');else localStorage.setItem('axisCashEntries',oldEntries)}catch(ignore){}
+    alert('ثبت اطلاعات مالی انجام نشد. فضای ذخیره‌سازی مرورگر را بررسی کنید.');return false;
+  }
+}
+
+function axisRenderCashBalance(){
+  const state=axisCashCurrent(),balance=document.getElementById('accCashBalance'),income=document.getElementById('accCashIncome'),out=document.getElementById('accCashOutflow'),note=document.getElementById('accCashStartNote'),button=document.getElementById('accCashSetupButton'),warning=document.getElementById('accCashWarning');
+  if(!state.configured){
+    if(balance)balance.textContent='تعیین نشده';if(income)income.textContent='—';if(out)out.textContent='—';
+    if(note)note.textContent='ابتدا موجودی اولیه را تعیین کنید.';if(button)button.textContent='تعیین موجودی اولیه';
+    if(warning){warning.textContent='';warning.style.display='none'}return;
+  }
+  if(balance)balance.textContent=fmt(state.balance)+' تومان';
+  if(income)income.textContent=fmt(state.customerIn+state.manualIn)+' تومان';
+  if(out)out.textContent=fmt(state.out)+' تومان';
+  const settings=axisCashReadSettings();if(note)note.textContent='از '+axisFaDigits(settings.startDate)+'؛ موجودی اولیه '+fmt(state.opening)+' تومان';
+  if(button)button.textContent='ویرایش موجودی اولیه';
+  if(warning){
+    const messages=[];
+    if(state.balance<0)messages.push('موجودی فعلی منفی است.');
+    if(state.skippedBefore)messages.push(fmt(state.skippedBefore)+' تراکنش با تاریخ پیش از شروع در مانده لحاظ نشده است.');
+    if(state.invalidDates)messages.push(fmt(state.invalidDates)+' تراکنش با تاریخ نامعتبر در مانده لحاظ نشده است.');
+    if(state.future)messages.push(fmt(state.future)+' تراکنش آینده تا رسیدن تاریخ آن در مانده لحاظ نمی‌شود.');
+    warning.textContent=messages.join(' ');warning.style.display=messages.length?'block':'none';
+  }
+}
+
+function axisCloseCashSetup(){
+  const overlay=document.getElementById('axisCashSetupModal');if(overlay)overlay.remove();
+  if(axisCashSetupEsc){document.removeEventListener('keydown',axisCashSetupEsc);axisCashSetupEsc=null}
+  axisCashReturnToEntry=false;
+}
+
+function axisOpenCashSetup(returnToEntry){
+  if(typeof axisCloseCashEntryModal==='function')axisCloseCashEntryModal();
+  axisCloseCashSetup();axisCashReturnToEntry=!!returnToEntry;
+  const current=axisCashReadSettings(),overlay=document.createElement('div');overlay.id='axisCashSetupModal';overlay.className='axis-modal-overlay';
+  overlay.onclick=function(e){if(e.target===overlay)axisCloseCashSetup()};
+  const description=current?'تغییر مبلغ اولیه، مانده را با حفظ تاریخ شروع و تمام گردش‌های بعدی باز‌محاسبه می‌کند.':'موجودی فعلی را وارد کنید. پرداخت‌هایی که پیش از ثبت این مقدار در سیستم موجود هستند دوباره به آن اضافه نمی‌شوند.';
+  overlay.innerHTML='<div class="axis-modal" role="dialog" aria-modal="true" aria-labelledby="axisCashSetupTitle"><div style="display:flex;align-items:center;gap:8px"><h3 id="axisCashSetupTitle" style="flex:1;margin:0">'+(current?'ویرایش موجودی اولیه':'تعیین موجودی اولیه')+'</h3><button type="button" class="muted-btn" onclick="axisCloseCashSetup()" aria-label="بستن">✕</button></div>'
+    +'<p class="axis-cash-modal-note">'+description+'</p>'
+    +(current?'<p class="axis-cash-modal-note">تاریخ شروع: '+axisFaDigits(current.startDate)+'</p>':'')
+    +'<label class="title" for="axisCashOpeningInput">موجودی اولیه (تومان)</label><input id="axisCashOpeningInput" inputmode="numeric" value="'+(current?axisEsc(current.opening):'')+'" placeholder="مثلاً ۵۰۰۰۰۰۰؛ صفر هم مجاز است">'
+    +'<div style="display:flex;gap:8px;margin-top:14px"><button type="button" class="dark" onclick="axisSaveCashSetup()" style="flex:1;background:var(--orange);color:#171b22">ذخیره موجودی اولیه</button><button type="button" class="muted-btn" onclick="axisCloseCashSetup()">انصراف</button></div></div>';
+  document.body.appendChild(overlay);axisCashSetupEsc=function(e){if(e.key==='Escape')axisCloseCashSetup()};document.addEventListener('keydown',axisCashSetupEsc);
+  const input=document.getElementById('axisCashOpeningInput');if(input)input.focus();
+}
+
+function axisSaveCashSetup(){
+  const input=document.getElementById('axisCashOpeningInput'),value=axisQtyValue(input?input.value:'');
+  if(value===null||!Number.isSafeInteger(Math.round(value))){alert('موجودی اولیهٔ معتبر وارد کنید؛ صفر نیز مجاز است.');if(input)input.focus();return}
+  const previous=axisCashReadSettings();
+  if(previous&&Number(previous.opening)!==Math.round(value)&&!confirm('موجودی اولیه تغییر کند؟ مانده با حفظ تمام گردش‌های بعدی دوباره محاسبه می‌شود.'))return;
+  const settings=previous?Object.assign({},previous,{opening:Math.round(value)}):axisCashMakeSettings(value,readLs('axisPayments',[]),readLs('axisSocialOrders',[]),axisCashReadEntries(),axisCashTodayJalali(),new Date().toISOString());
+  if(!axisCashWriteRegister(settings,axisCashReadEntries()))return;
+  const reopen=axisCashReturnToEntry;axisCloseCashSetup();
+  try{syncCloudBackup(true)}catch(e){}
+  renderAccounting();try{showNotification('موجودی اولیه ثبت شد ✔',true)}catch(e){}
+  if(reopen)axisOpenCashEntryModal();
+}
+
+function axisCloseCashEntryModal(){
+  const overlay=document.getElementById('axisCashEntryModal');if(overlay)overlay.remove();
+  if(axisCashEntryEsc){document.removeEventListener('keydown',axisCashEntryEsc);axisCashEntryEsc=null}
+}
+
+function axisOpenCashEntryModal(){
+  axisCloseCashEntryModal();
+  const settings=axisCashReadSettings(),overlay=document.createElement('div');overlay.id='axisCashEntryModal';overlay.className='axis-modal-overlay';
+  overlay.onclick=function(e){if(e.target===overlay)axisCloseCashEntryModal()};
+  const head='<div style="display:flex;align-items:center;gap:8px"><h3 id="axisCashEntryTitle" style="flex:1;margin:0">مخارج، خریدها و واریزها</h3><button type="button" class="muted-btn" onclick="axisCloseCashEntryModal()" aria-label="بستن">✕</button></div>';
+  if(!settings){
+    overlay.innerHTML='<div class="axis-modal" role="dialog" aria-modal="true" aria-labelledby="axisCashEntryTitle">'+head+'<p class="axis-cash-modal-note">برای ثبت و محاسبهٔ گردش مالی، ابتدا موجودی فعلی خود را به‌عنوان موجودی اولیه تعیین کنید. پرداخت‌های ثبت‌شدهٔ قبلی دوباره شمرده نمی‌شوند.</p><button type="button" class="dark" onclick="axisOpenCashSetup(true)" style="background:var(--orange);color:#171b22;width:100%">تعیین موجودی اولیه</button></div>';
+  }else{
+    axisCashEntryKind='expense';
+    overlay.innerHTML='<div class="axis-modal wide" role="dialog" aria-modal="true" aria-labelledby="axisCashEntryTitle">'+head
+      +'<div class="axis-cash-tabs" role="group" aria-label="نوع گردش مالی"><button type="button" class="active" data-cash-kind="expense" onclick="axisCashSelectKind(\'expense\')">خرج عمومی</button><button type="button" data-cash-kind="stock" onclick="axisCashSelectKind(\'stock\')">خرید و ورود انبار</button><button type="button" data-cash-kind="deposit" onclick="axisCashSelectKind(\'deposit\')">واریز دستی</button></div>'
+      +'<div id="axisCashExpenseArea"><div class="form"><div><label class="title" for="axisCashExpenseCategory">نوع هزینه</label><select id="axisCashExpenseCategory"><option>پست و ارسال</option><option>چاپ و کاغذ</option><option>حمل‌ونقل</option><option>قبوض و اجاره</option><option>خدمات و تعمیرات</option><option>سایر مخارج</option></select></div><div><label class="title" for="axisCashExpenseTitle">عنوان هزینه</label><input id="axisCashExpenseTitle" placeholder="مثلاً چاپ برچسب"></div></div></div>'
+      +'<div id="axisCashStockArea" style="display:none"></div>'
+      +'<div id="axisCashDepositArea" style="display:none"><label class="title" for="axisCashDepositTitle">عنوان واریز</label><input id="axisCashDepositTitle" placeholder="مثلاً سرمایه یا واریز متفرقه"><p class="axis-cash-modal-note">پرداخت مشتریان که در سفارش ثبت می‌شود خودکار به موجودی افزوده می‌شود؛ آن را دوباره اینجا ثبت نکنید.</p></div>'
+      +'<div class="form"><div><label class="title" for="axisCashAmount">مبلغ (تومان)</label><input id="axisCashAmount" inputmode="numeric" oninput="axisCashStockChoiceChanged()" placeholder="مبلغ پرداخت یا واریز"></div><div><label class="title" for="axisCashDate">تاریخ</label><input id="axisCashDate" value="'+axisEsc(axisCashTodayJalali())+'" placeholder="۱۴۰۵/۰۸/۰۹"></div><div class="full"><label class="title" for="axisCashNote">توضیحات</label><input id="axisCashNote" placeholder="اختیاری"></div></div>'
+      +'<p class="axis-cash-modal-note">تنها گردش‌های از تاریخ شروع موجودی تا امروز در مانده محاسبه می‌شوند.</p>'
+      +'<div style="display:flex;gap:8px;margin-top:14px"><button type="button" class="dark" onclick="axisSaveCashEntry()" style="flex:1;background:var(--orange);color:#171b22">ثبت گردش مالی</button><button type="button" class="muted-btn" onclick="axisCloseCashEntryModal()">انصراف</button></div></div>';
+  }
+  document.body.appendChild(overlay);
+  if(settings&&typeof axisCashRenderStockFields==='function')axisCashRenderStockFields();
+  axisCashEntryEsc=function(e){if(e.key==='Escape')axisCloseCashEntryModal()};document.addEventListener('keydown',axisCashEntryEsc);
+}
+
+function axisCashSelectKind(kind){
+  if(!['expense','stock','deposit'].includes(kind))return;axisCashEntryKind=kind;
+  [['expense','axisCashExpenseArea'],['stock','axisCashStockArea'],['deposit','axisCashDepositArea']].forEach(function(x){const el=document.getElementById(x[1]);if(el)el.style.display=x[0]===kind?'block':'none'});
+  document.querySelectorAll('[data-cash-kind]').forEach(function(b){const on=b.dataset.cashKind===kind;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false')});
+}
+
+function axisCashReadCommon(){
+  const settings=axisCashReadSettings();if(!settings){alert('ابتدا موجودی اولیه را تعیین کنید.');return null}
+  const amountInput=document.getElementById('axisCashAmount'),dateInput=document.getElementById('axisCashDate'),noteInput=document.getElementById('axisCashNote');
+  const raw=axisQtyValue(amountInput?amountInput.value:''),amount=raw===null?0:Math.round(raw);
+  if(!Number.isSafeInteger(amount)||amount<=0){alert('مبلغ معتبر و بیشتر از صفر وارد کنید.');if(amountInput)amountInput.focus();return null}
+  const date=String(dateInput?dateInput.value:'').trim(),day=axisCashDayNumber(date),start=axisCashDayNumber(settings.startDate),today=axisCashDayNumber(axisJalaliToday());
+  if(day===null){alert('تاریخ معتبر وارد کنید.');if(dateInput)dateInput.focus();return null}
+  if(day<start){alert('تاریخ گردش نمی‌تواند پیش از تاریخ تعیین موجودی اولیه باشد.');return null}
+  if(day>today){alert('تاریخ گردش نمی‌تواند در آینده باشد.');return null}
+  return {settings:settings,amount:amount,date:date,note:String(noteInput?noteInput.value:'').trim()};
+}
+
+function axisCashConfirmOutflow(amount){
+  const state=axisCashCurrent();
+  return !state.configured||amount<=state.balance||confirm('مبلغ برداشت از موجودی فعلی بیشتر است و مانده منفی می‌شود. ثبت شود؟');
+}
+
+function axisSaveCashEntry(){
+  const common=axisCashReadCommon();if(!common)return;
+  if(axisCashEntryKind==='stock'){
+    if(typeof axisSaveCashStockEntry==='function')axisSaveCashStockEntry(common);else alert('ثبت خرید انبار در دسترس نیست.');return;
+  }
+  if(axisCashEntryKind==='expense'&&!axisCashConfirmOutflow(common.amount))return;
+  const titleEl=document.getElementById(axisCashEntryKind==='deposit'?'axisCashDepositTitle':'axisCashExpenseTitle');
+  const categoryEl=document.getElementById('axisCashExpenseCategory'),category=axisCashEntryKind==='expense'?String(categoryEl?categoryEl.value:'سایر مخارج'):'';
+  const title=String(titleEl?titleEl.value:'').trim()||(axisCashEntryKind==='deposit'?'واریز دستی':category);
+  const entries=axisCashReadEntries();entries.push({id:axisCashUniqueId('AXC'),kind:axisCashEntryKind,date:common.date,amount:common.amount,title:title,category:category,note:common.note,createdAt:new Date().toISOString()});
+  if(!axisCashWriteRegister(common.settings,entries))return;
+  try{syncCloudBackup(true)}catch(e){}
+  axisCloseCashEntryModal();renderAccounting();try{showNotification('گردش مالی ثبت شد ✔',true)}catch(e){}
+}
+
+function axisDeleteCashEntry(index){
+  const entries=axisCashReadEntries(),entry=entries[index];if(!entry)return;
+  if(entry.kind==='stock'&&typeof axisDeleteCashStockEntry==='function'){axisDeleteCashStockEntry(index);return}
+  if(entry.kind==='stock'){alert('برای حذف خرید انبار ابتدا وضعیت موجودی را بررسی کنید.');return}
+  if(!confirm('این گردش مالی حذف شود؟ ماندهٔ موجودی دوباره محاسبه می‌شود.'))return;
+  entries.splice(index,1);if(!axisCashWriteRegister(axisCashReadSettings(),entries))return;
+  try{syncCloudBackup(true)}catch(e){}
+  renderAccounting();
+}
+
+function axisCashWarnPaymentDate(date){
+  const settings=axisCashReadSettings();if(!settings)return true;
+  const day=axisCashDayNumber(date),start=axisCashDayNumber(settings.startDate),today=axisCashDayNumber(axisJalaliToday());
+  if(day===null)return false;
+  if(day<start)return confirm('تاریخ پرداخت پیش از شروع موجودی است؛ در ماندهٔ فعلی لحاظ نمی‌شود. ثبت شود؟');
+  if(day>today)return confirm('تاریخ پرداخت در آینده است؛ تا رسیدن آن تاریخ در موجودی لحاظ نمی‌شود. ثبت شود؟');
+  return true;
+}
+
+function axisCashBackupObject(){return {schema:'AXIS_FINANCE_1',exportedAt:new Date().toISOString(),cashRegister:{version:1,settings:axisCashReadSettings(),entries:axisCashReadEntries()}}}
+
+function axisExportCashBackup(){
+  if(!axisCashReadSettings()){alert('ابتدا موجودی اولیه را تعیین کنید.');return}
+  const payload=JSON.stringify(axisCashBackupObject(),null,2),url=URL.createObjectURL(new Blob([payload],{type:'application/json;charset=utf-8'}));
+  const a=document.createElement('a');a.href=url;a.download='AXIS-finance-'+axisCashTodayJalali().replace(/[^0-9]/g,'')+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000);
+}
+
+function axisCashBackupValid(data){
+  const reg=data&&data.cashRegister;if(!data||data.schema!=='AXIS_FINANCE_1'||!reg||!axisCashSettingsValid(reg.settings)||!Array.isArray(reg.entries)||reg.entries.length>100000)return false;
+  const seen=new Set();
+  return reg.entries.every(function(e){
+    if(!e||typeof e.id!=='string'||!e.id||seen.has(e.id)||!['expense','deposit','stock'].includes(e.kind)||!Number.isSafeInteger(Number(e.amount))||Number(e.amount)<=0||!axisSocialDateParts(e.date))return false;
+    if(e.kind==='stock'&&(!e.stock||!['material','ring'].includes(e.stock.kind)||typeof e.stock.id!=='string'||!e.stock.id||typeof e.stock.name!=='string'||!e.stock.name||!Number.isFinite(Number(e.stock.qty))||Number(e.stock.qty)<=0||Number(e.stock.qty)>Number.MAX_SAFE_INTEGER/1000000))return false;
+    seen.add(e.id);return true;
+  });
+}
+
+function axisImportCashBackup(input){
+  const file=input&&input.files&&input.files[0];if(!file)return;
+  if(file.size>5*1024*1024){alert('حجم فایل پشتیبان بیش از حد مجاز است.');input.value='';return}
+  const reader=new FileReader();
+  reader.onload=function(){
+    try{
+      const data=JSON.parse(String(reader.result||''));
+      if(!axisCashBackupValid(data)){alert('فایل پشتیبان مالی معتبر نیست.');return}
+      if(!confirm('دفتر مالی فعلی با فایل جایگزین شود؟ موجودی انبار و سفارش‌ها تغییر نمی‌کنند.'))return;
+      if(!axisCashWriteRegister(data.cashRegister.settings,data.cashRegister.entries))return;
+      try{syncCloudBackup(true)}catch(e){}
+      renderAccounting();try{showNotification('پشتیبان مالی بازیابی شد ✔',true)}catch(e){}
+    }catch(e){alert('خواندن فایل پشتیبان مالی ناموفق بود.')}
+    finally{input.value=''}
+  };
+  reader.onerror=function(){alert('خواندن فایل پشتیبان مالی ناموفق بود.');input.value=''};reader.readAsText(file);
+}
+
+let axisCashStockChoices=[];
+
+function axisCashInventoryChoices(){
+  const list=axisMaterialsV2(),choices=[];
+  list.forEach(function(m,index){
+    if(!m||!m.name)return;
+    const unit=m.unit||(m.category==='filament'?'گرم':'عدد');
+    const raw=m.qty!==undefined&&m.qty!==null?m.qty:m.quantity;
+    choices.push({kind:'material',id:String(m.id||''),index:index,name:String(m.name),category:String(m.category||'consumable'),unit:String(unit),qty:axisQtyValue(raw)||0});
+  });
+  const rings=axisRingStockMap();
+  [{id:'simple',name:'حلقه جاسویچی ساده'},{id:'color',name:'حلقه جاسویچی رنگی'},{id:'charm',name:'حلقه آویز'}].forEach(function(r){
+    const stock=rings[r.id]||{};choices.push({kind:'ring',id:r.id,name:r.name,category:'consumable',unit:String(stock.unit||'عدد'),qty:axisQtyValue(stock.qty)||0});
+  });
+  return choices;
+}
+
+function axisCashRenderStockFields(){
+  const box=document.getElementById('axisCashStockArea');if(!box)return;
+  axisCashStockChoices=axisCashInventoryChoices();
+  const options=axisCashStockChoices.map(function(x,i){const category=x.kind==='ring'?'خرج‌کار ثابت':(AXIS_MATERIAL_CATS[x.category]||'انبار');return '<option value="'+i+'">'+axisEsc(x.name)+' — '+axisEsc(category)+' / '+axisEsc(x.unit)+' (موجودی '+axisFaDigits(String(x.qty))+')</option>'}).join('');
+  const units=AXIS_MAT_UNITS.map(function(u){return '<option value="'+axisEsc(u)+'">'+axisEsc(u)+'</option>'}).join('');
+  box.innerHTML='<p class="axis-cash-modal-note">خرید پرداخت‌شده را ثبت کنید؛ تعداد خریداری‌شده به موجودی کالا اضافه می‌شود. قیمت روز کالای موجود تغییر نمی‌کند.</p>'
+    +'<label class="title" for="axisCashStockChoice">کالای انبار</label><select id="axisCashStockChoice" onchange="axisCashStockChoiceChanged()"><option value="">انتخاب کالا</option>'+options+'<option value="new">＋ ثبت کالای جدید</option></select>'
+    +'<div id="axisCashNewStockArea" class="form" style="display:none"><div><label class="title" for="axisCashNewName">نام کالای جدید</label><input id="axisCashNewName" placeholder="نام ماده یا کالا"></div>'
+    +'<div><label class="title" for="axisCashNewCategory">دستهٔ انبار</label><select id="axisCashNewCategory" onchange="axisCashNewCategoryChanged()"><option value="filament">فیلامنت</option><option value="paint">لوازم رنگ‌آمیزی</option><option value="consumable">خرج‌کارها</option></select></div>'
+    +'<div><label class="title" for="axisCashNewUnit">واحد موجودی</label><select id="axisCashNewUnit" onchange="axisCashStockChoiceChanged()">'+units+'</select></div>'
+    +'<div><label class="title" for="axisCashNewColor">رنگ</label><input id="axisCashNewColor" placeholder="اختیاری"></div>'
+    +'<div><label class="title" for="axisCashNewBrand">برند</label><input id="axisCashNewBrand" placeholder="اختیاری"></div><div><label class="title" for="axisCashNewType">جنس / نوع</label><input id="axisCashNewType" placeholder="اختیاری"></div></div>'
+    +'<div class="form"><div><label class="title" for="axisCashStockQty">مقدار ورود <span id="axisCashStockUnit"></span></label><input id="axisCashStockQty" inputmode="decimal" oninput="axisCashStockChoiceChanged()" placeholder="مقدار خریداری‌شده"></div><div><p id="axisCashStockCurrent" class="axis-cash-modal-note"></p><p id="axisCashNewPriceHint" class="axis-cash-modal-note"></p></div></div>';
+  axisCashNewCategoryChanged();axisCashStockChoiceChanged();
+}
+
+function axisCashNewCategoryChanged(){
+  const category=document.getElementById('axisCashNewCategory'),unit=document.getElementById('axisCashNewUnit');
+  if(unit)unit.value=category&&category.value==='filament'?'گرم':'عدد';
+  axisCashStockChoiceChanged();
+}
+
+function axisCashStockPrice(category,unit,amount,qty){
+  if(!(amount>0)||!(qty>0))return null;
+  let price=amount/qty;
+  if(category==='filament'){
+    if(unit==='گرم')price*=1000;
+    else if(unit!=='کیلوگرم')return null;
+  }
+  return Math.round(price*100)/100;
+}
+
+function axisCashStockChoiceChanged(){
+  const select=document.getElementById('axisCashStockChoice');if(!select)return;
+  const isNew=select.value==='new',area=document.getElementById('axisCashNewStockArea');if(area)area.style.display=isNew?'grid':'none';
+  const choice=!isNew&&select.value!==''?axisCashStockChoices[Number(select.value)]:null;
+  const unitInput=document.getElementById('axisCashNewUnit'),catInput=document.getElementById('axisCashNewCategory');
+  const unit=isNew?String(unitInput?unitInput.value:''):choice?choice.unit:'';
+  const unitLabel=document.getElementById('axisCashStockUnit');if(unitLabel)unitLabel.textContent=unit?'('+unit+')':'';
+  const current=document.getElementById('axisCashStockCurrent');if(current)current.textContent=choice?'موجودی فعلی: '+axisFaDigits(String(choice.qty))+' '+choice.unit:(isNew?'کالای جدید پس از ثبت به انبار اضافه می‌شود.':'');
+  const hint=document.getElementById('axisCashNewPriceHint');if(hint){
+    hint.textContent='';
+    if(isNew){
+      const amountInput=document.getElementById('axisCashAmount'),qtyInput=document.getElementById('axisCashStockQty'),amount=axisQtyValue(amountInput?amountInput.value:''),qty=axisQtyValue(qtyInput?qtyInput.value:''),category=String(catInput?catInput.value:'');
+      const price=axisCashStockPrice(category,unit,amount,qty);
+      hint.textContent=price!==null?'قیمت اولیهٔ کالا: '+fmt(price)+' تومان '+(category==='filament'?'برای هر کیلوگرم':'برای هر '+unit)+(category==='filament'&&unit==='کیلوگرم'?'؛ موجودی به گرم ثبت می‌شود.':''):'قیمت اولیهٔ کالای جدید از مبلغ و مقدار خرید محاسبه می‌شود.';
+    }
+  }
+}
+
+function axisCashCommitStock(entries,stockKey,stockData){
+  const oldEntries=localStorage.getItem('axisCashEntries'),oldStock=localStorage.getItem(stockKey);
+  try{localStorage.setItem(stockKey,JSON.stringify(stockData));localStorage.setItem('axisCashEntries',JSON.stringify(entries))}
+  catch(e){
+    try{if(oldStock===null)localStorage.removeItem(stockKey);else localStorage.setItem(stockKey,oldStock);if(oldEntries===null)localStorage.removeItem('axisCashEntries');else localStorage.setItem('axisCashEntries',oldEntries)}catch(ignore){}
+    alert('ثبت خرید و موجودی انجام نشد. فضای ذخیره‌سازی مرورگر را بررسی کنید.');return false;
+  }
+  try{syncProductCatalog(true)}catch(e){}
+  try{syncCloudBackup(true)}catch(e){}
+  try{if(activeMaterialCategory)renderMaterialsList();else renderMaterialsHub()}catch(e){}
+  return true;
+}
+
+function axisSaveCashStockEntry(common){
+  const select=document.getElementById('axisCashStockChoice'),qtyInput=document.getElementById('axisCashStockQty');
+  const value=String(select?select.value:''),rawQty=axisQtyValue(qtyInput?qtyInput.value:''),qty=rawQty===null?null:Math.round(rawQty*1000000)/1000000;
+  if(!value){alert('کالای انبار را انتخاب کنید.');return}
+  if(qty===null||!Number.isFinite(qty)||qty<=0||qty>Number.MAX_SAFE_INTEGER/1000000){alert('مقدار ورود معتبر و بیشتر از صفر وارد کنید.');if(qtyInput)qtyInput.focus();return}
+  let stockKey,stockData,stockInfo;
+  if(value==='new'){
+    const name=String((document.getElementById('axisCashNewName')||{}).value||'').trim();
+    const category=String((document.getElementById('axisCashNewCategory')||{}).value||''),unit=String((document.getElementById('axisCashNewUnit')||{}).value||'');
+    if(name.length<2){alert('نام کالای جدید را وارد کنید.');return}
+    if(!['filament','paint','consumable'].includes(category)||!AXIS_MAT_UNITS.includes(unit)){alert('دسته و واحد معتبر را انتخاب کنید.');return}
+    if(category==='filament'&&unit!=='گرم'&&unit!=='کیلوگرم'){alert('واحد فیلامنت را گرم یا کیلوگرم انتخاب کنید.');return}
+    stockData=axisMaterialsV2().map(function(m){return Object.assign({},m)});
+    if(stockData.some(function(m){return String(m.name||'').trim().toLowerCase()===name.toLowerCase()})||axisCashStockChoices.some(function(x){return x.kind==='ring'&&x.name===name})){alert('این کالا قبلاً در انبار ثبت شده است؛ آن را از فهرست انتخاب کنید.');return}
+    const price=axisCashStockPrice(category,unit,common.amount,qty);
+    if(price===null||!Number.isFinite(price)||price<=0){alert('قیمت اولیهٔ کالا از مبلغ و مقدار قابل محاسبه نیست.');return}
+    const id=axisCashUniqueId('AXM'),storedUnit=category==='filament'&&unit==='کیلوگرم'?'گرم':unit,storedQty=category==='filament'&&unit==='کیلوگرم'?Math.round(qty*1000000000)/1000000:qty;
+    if(!Number.isFinite(storedQty)||storedQty>Number.MAX_SAFE_INTEGER/1000000){alert('مقدار ورود بیش از حد مجاز است.');return}
+    stockData.push({id:id,name:name,category:category,brand:String((document.getElementById('axisCashNewBrand')||{}).value||'').trim(),type:String((document.getElementById('axisCashNewType')||{}).value||'').trim(),color:String((document.getElementById('axisCashNewColor')||{}).value||'').trim(),price:price,qty:storedQty,unit:storedUnit});
+    stockKey='axisMaterialsV2';stockInfo={kind:'material',id:id,name:name,category:category,unit:storedUnit,qty:storedQty,purchaseUnit:unit,purchaseQty:qty,createdNew:true};
+  }else{
+    const choice=axisCashStockChoices[Number(value)];if(!choice){alert('کالای انتخاب‌شده پیدا نشد.');return}
+    if(choice.kind==='ring'){
+      stockKey='axisRingStock';stockData=axisRingStockMap();const ring=stockData[choice.id];
+      if(!ring){alert('کالای انتخاب‌شده در انبار پیدا نشد.');return}
+      if(ring.unit&&String(ring.unit)!==choice.unit){alert('واحد کالا تغییر کرده است؛ پنجره را ببندید و دوباره باز کنید.');return}
+      const oldQty=axisQtyValue(ring.qty)||0;if(!Number.isFinite(oldQty+qty)||oldQty+qty>Number.MAX_SAFE_INTEGER/1000000){alert('مقدار موجودی بیش از حد مجاز است.');return}ring.qty=Math.round((oldQty+qty)*1000000)/1000000;if(!ring.unit)ring.unit=choice.unit;
+      stockInfo={kind:'ring',id:choice.id,name:choice.name,unit:choice.unit,qty:qty};
+    }else{
+      stockKey='axisMaterialsV2';stockData=axisMaterialsV2().map(function(m){return Object.assign({},m)});
+      const at=stockData.findIndex(function(m){return choice.id?String(m.id||'')===choice.id:String(m.name||'')===choice.name});
+      if(at<0){alert('کالای انتخاب‌شده در انبار پیدا نشد.');return}
+      const item=stockData[at];if(item.unit&&String(item.unit)!==choice.unit){alert('واحد کالا تغییر کرده است؛ پنجره را ببندید و دوباره باز کنید.');return}if(!item.id)item.id=axisCashUniqueId('AXM');
+      const raw=item.qty!==undefined&&item.qty!==null?item.qty:item.quantity,oldQty=axisQtyValue(raw)||0;
+      if(!Number.isFinite(oldQty+qty)||oldQty+qty>Number.MAX_SAFE_INTEGER/1000000){alert('مقدار موجودی بیش از حد مجاز است.');return}
+      item.qty=Math.round((oldQty+qty)*1000000)/1000000;if(item.quantity!==undefined)item.quantity=item.qty;if(!item.unit)item.unit=choice.unit;
+      stockInfo={kind:'material',id:String(item.id),name:String(item.name),category:String(item.category||''),unit:String(item.unit||choice.unit),qty:qty};
+    }
+  }
+  if(!axisCashConfirmOutflow(common.amount))return;
+  const entries=axisCashReadEntries();entries.push({id:axisCashUniqueId('AXC'),kind:'stock',date:common.date,amount:common.amount,title:'خرید انبار',category:'انبار',note:common.note,stock:stockInfo,createdAt:new Date().toISOString()});
+  if(!axisCashCommitStock(entries,stockKey,stockData))return;
+  axisCloseCashEntryModal();renderAccounting();try{showNotification('خرید ثبت شد و موجودی انبار افزایش یافت ✔',true)}catch(e){}
+}
+
+function axisDeleteCashStockEntry(index){
+  const entries=axisCashReadEntries(),entry=entries[index],info=entry&&entry.stock;if(!entry||!info)return;
+  const qty=axisQtyValue(info.qty);if(qty===null||qty<=0){alert('مقدار ثبت‌شدهٔ خرید معتبر نیست؛ حذف خودکار انجام نشد.');return}
+  let stockKey,stockData,item;
+  if(info.kind==='ring'){
+    stockKey='axisRingStock';stockData=axisRingStockMap();item=stockData[info.id];
+  }else if(info.kind==='material'){
+    stockKey='axisMaterialsV2';stockData=axisMaterialsV2().map(function(m){return Object.assign({},m)});
+    let at=stockData.findIndex(function(m){return String(m.id||'')===String(info.id||'')});
+    if(at<0){const matches=stockData.map(function(m,i){return {m:m,i:i}}).filter(function(x){return x.m&&String(x.m.name||'')===String(info.name||'')&&(!info.category||String(x.m.category||'')===String(info.category))});if(matches.length===1)at=matches[0].i}
+    if(at>=0)item=stockData[at];
+  }
+  if(!item){alert('کالای مربوط به خرید در انبار پیدا نشد؛ برای جلوگیری از مغایرت، حذف خودکار انجام نشد.');return}
+  if(item.unit&&info.unit&&String(item.unit)!==String(info.unit)){alert('واحد کالای انبار تغییر کرده است؛ برای جلوگیری از مغایرت، حذف خودکار انجام نشد.');return}
+  const raw=item.qty!==undefined&&item.qty!==null?item.qty:item.quantity,physical=axisQtyValue(raw)||0,reserved=axisQtyValue(item.reservedQty!==undefined?item.reservedQty:item.reserved)||0;
+  const remaining=Math.round((physical-qty)*1000000)/1000000;
+  if(remaining<0||remaining+0.000001<reserved){alert('موجودی آزاد کالا برای برگشت این خرید کافی نیست. ابتدا موجودی و رزروهای انبار را بررسی کنید.');return}
+  if(!confirm('این خرید حذف شود؟ مقدار ثبت‌شده از موجودی «'+(info.name||'کالا')+'» کم و ماندهٔ مالی دوباره محاسبه می‌شود.'))return;
+  item.qty=remaining;if(item.quantity!==undefined)item.quantity=remaining;
+  entries.splice(index,1);if(!axisCashCommitStock(entries,stockKey,stockData))return;
+  renderAccounting();try{showNotification('خرید حذف شد و موجودی انبار اصلاح شد.',true)}catch(e){}
+}
+
+function axisCashRemovalEffect(kind,index,paymentIndex){
+  const settings=axisCashReadSettings();if(!settings)return 0;
+  const main=readLs('axisPayments',[]),social=readLs('axisSocialOrders',[]),entries=axisCashReadEntries();
+  if(!Array.isArray(main)||!Array.isArray(social))return 0;
+  const before=axisCashCompute(settings,main,social,entries,axisJalaliToday());
+  if(kind==='main-payment')main.splice(index,1);
+  else if(kind==='social-order')social.splice(index,1);
+  else if(kind==='social-payment'){
+    const order=social[index];if(!order)return 0;
+    const payments=axisSocialPaymentEntries(order).map(function(p){const x=Object.assign({},p);delete x._axisLegacy;delete x._axisDateFallback;return x});
+    if(!payments[paymentIndex])return 0;payments.splice(paymentIndex,1);
+    order.payments=payments;order.payment=payments.reduce(function(n,p){return n+axisSocialAmount(p.amount)},0);
+  }else return 0;
+  const after=axisCashCompute(settings,main,social,entries,axisJalaliToday());
+  return after.balance-before.balance;
+}
+
+function axisCashConfirmRemoval(message,kind,index,paymentIndex){
+  let effect=0;try{effect=axisCashRemovalEffect(kind,index,paymentIndex)}catch(e){}
+  if(Math.abs(effect)>=0.5)message+='\n\nموجودی مالی '+fmt(Math.abs(effect))+' تومان '+(effect<0?'کاهش':'افزایش')+' می‌یابد.';
+  return confirm(message);
+}
+
+let axisAccountingPanelActive=null,axisAccountingPanelEsc=null;
+function axisCloseAccountingPanel(){
+  const home=document.getElementById('accountingPanelsHome');
+  if(home&&axisAccountingPanelActive){const panel=document.getElementById(axisAccountingPanelActive);if(panel)home.appendChild(panel)}
+  const overlay=document.getElementById('axisAccountingPanelModal');if(overlay)overlay.remove();
+  if(axisAccountingPanelEsc){document.removeEventListener('keydown',axisAccountingPanelEsc);axisAccountingPanelEsc=null}
+  axisAccountingPanelActive=null;
+}
+function axisOpenAccountingPanel(kind){
+  const config=kind==='transactions'?{id:'accountingTransactionsPanel',title:'تراکنش‌ها'}:kind==='customers'?{id:'accountingCustomersPanel',title:'پرتفوی مشتریان'}:null;
+  if(!config)return;
+  axisCloseAccountingPanel();
+  const panel=document.getElementById(config.id);if(!panel)return;
+  const overlay=document.createElement('div');overlay.id='axisAccountingPanelModal';overlay.className='axis-modal-overlay';
+  overlay.onclick=function(e){if(e.target===overlay)axisCloseAccountingPanel()};
+  overlay.innerHTML='<div class="axis-modal axis-accounting-modal" role="dialog" aria-modal="true" aria-labelledby="axisAccountingPanelTitle"><div class="axis-accounting-modal-head"><h3 id="axisAccountingPanelTitle">'+config.title+'</h3><button type="button" class="muted-btn" onclick="axisCloseAccountingPanel()" aria-label="بستن">✕</button></div><p class="axis-accounting-scroll-tip">برای مشاهدهٔ همهٔ ستون‌ها، جدول را به طرفین حرکت دهید.</p><div id="axisAccountingPanelMount"></div></div>';
+  document.body.appendChild(overlay);axisAccountingPanelActive=config.id;
+  const mount=document.getElementById('axisAccountingPanelMount');if(mount)mount.appendChild(panel);
+  renderAccounting();
+  axisAccountingPanelEsc=function(e){if(e.key==='Escape')axisCloseAccountingPanel()};document.addEventListener('keydown',axisAccountingPanelEsc);
+}
+
 function renderAccounting(){
   const data=axisAccountingBuildData(readLs('axisOrders',[]),readLs('axisPayments',[]),readLs('axisSocialOrders',[]),savedCustomers(),accountingRange,new Date());
+  axisCashAddTransactionRows(data,axisCashReadEntries(),accountingRange,new Date());axisRenderCashBalance();
   const set=function(id,value){const el=document.getElementById(id);if(el)el.textContent=fmt(value)+' تومان'};
   set('accSales',data.stats.sales);set('accShipping',data.stats.shipping);set('accReceivable',data.stats.receivable);set('accPayments',data.stats.received);set('accDebt',data.stats.debt);
   const credit=document.getElementById('accCreditHint');if(credit){credit.textContent=data.stats.credit?'بستانکاری ثبت‌شده مشتریان: '+fmt(data.stats.credit)+' تومان':'';credit.style.display=data.stats.credit?'block':'none'}
@@ -1251,6 +1864,7 @@ function renderAccounting(){
     if(t.kind==='payment')action='<button type="button" class="dark" onclick="deletePaymentTransaction('+t.paymentIndex+')">حذف</button>';
     else if(t.kind==='social-order')action='<button type="button" class="dark" onclick="axisOpenSocialAccountingPayment('+t.orderIndex+')">ثبت پرداخت</button>';
     else if(t.kind==='social-payment')action='<button type="button" class="dark" onclick="axisDeleteSocialAccountingPayment('+t.orderIndex+','+t.paymentIndex+')">حذف</button>';
+    else if(t.kind==='cash-entry')action='<button type="button" class="dark" onclick="axisDeleteCashEntry('+t.cashIndex+')">حذف</button>';
     return '<tr><td>'+escapeHtml(t.date||'—')+'</td><td>'+escapeHtml(t.type)+'</td><td>'+escapeHtml(t.customer||'—')+'</td><td>'+escapeHtml(t.invoice||'—')+'</td><td>'+fmt(t.amount)+' تومان</td><td>'+escapeHtml(t.note||'—')+'</td><td>'+action+'</td></tr>';
   }).join(''):'<tr><td colspan="7" class="empty-cart">تراکنشی ثبت نشده است.</td></tr>';
   const portfolio=document.getElementById('accountingPortfolioRows');
@@ -1289,9 +1903,10 @@ function axisSubmitSocialAccountingPayment(){
   if(!axisAccountingSocialTarget)return;
   const amountInput=document.getElementById('axisSocialPaymentAmount'),dateInput=document.getElementById('axisSocialPaymentDate'),noteInput=document.getElementById('axisSocialPaymentNote');
   const rawAmount=amountInput?amountInput.value:'',parsed=axisQtyValue(rawAmount),amount=parsed===null?0:Math.round(parsed);
-  if(amount<=0){alert('مبلغ پرداختی معتبر را وارد کنید.');if(amountInput)amountInput.focus();return}
+  if(!Number.isSafeInteger(amount)||amount<=0){alert('مبلغ پرداختی معتبر را وارد کنید.');if(amountInput)amountInput.focus();return}
   const date=String(dateInput?dateInput.value:'').trim();
   if(!axisSocialDateParts(date)){alert('تاریخ پرداخت معتبر وارد کنید.');if(dateInput)dateInput.focus();return}
+  if(!axisCashWarnPaymentDate(date))return;
   const list=readLs('axisSocialOrders',[]);if(!Array.isArray(list))return;
   let index=axisAccountingSocialTarget.index,order=list[index];
   if(!order||String(order.id||'')!==axisAccountingSocialTarget.id){index=list.findIndex(function(o){return o&&String(o.id||'')===axisAccountingSocialTarget.id});order=list[index]}
@@ -1299,7 +1914,7 @@ function axisSubmitSocialAccountingPayment(){
   const m=axisSocialOrderMetrics(order),paid=axisSocialRecordedPaid(order),remaining=Math.max(0,m.products+m.shipping-paid);
   if(amount>remaining&&!confirm('مبلغ پرداختی از ماندهٔ این سفارش بیشتر است. ثبت شود؟'))return;
   const entries=axisSocialPaymentEntries(order).map(function(p){const x=Object.assign({},p);delete x._axisLegacy;delete x._axisDateFallback;return x});
-  entries.push({amount:amount,date:date,note:String(noteInput?noteInput.value:'').trim()});
+  entries.push({id:axisCashUniqueId('AXP'),amount:amount,date:date,note:String(noteInput?noteInput.value:'').trim()});
   order.payments=entries;order.payment=entries.reduce(function(n,p){return n+axisSocialAmount(p.amount)},0);
   localStorage.setItem('axisSocialOrders',JSON.stringify(list));
   try{syncCloudBackup(true)}catch(e){}
@@ -1310,7 +1925,7 @@ function axisSubmitSocialAccountingPayment(){
 function axisDeleteSocialAccountingPayment(orderIndex,paymentIndex){
   const list=readLs('axisSocialOrders',[]),order=Array.isArray(list)?list[orderIndex]:null;if(!order)return;
   const entries=axisSocialPaymentEntries(order).map(function(p){const x=Object.assign({},p);delete x._axisLegacy;delete x._axisDateFallback;return x});
-  if(!entries[paymentIndex]||!confirm('این پرداخت سفارش سوشال حذف شود؟'))return;
+  if(!entries[paymentIndex]||!axisCashConfirmRemoval('این پرداخت سفارش سوشال حذف شود؟','social-payment',orderIndex,paymentIndex))return;
   entries.splice(paymentIndex,1);order.payments=entries;order.payment=entries.reduce(function(n,p){return n+axisSocialAmount(p.amount)},0);
   localStorage.setItem('axisSocialOrders',JSON.stringify(list));
   try{syncCloudBackup(true)}catch(e){}
@@ -1485,6 +2100,11 @@ function renderSocialOverview(){
   }
 }
 
+let axisSocialEditPaymentSnapshot=null,axisSocialEditOrderId=null;
+function axisSocialPaymentSignature(order){
+  const entries=axisSocialPaymentEntries(order).map(function(p){return JSON.stringify([String(p.id||''),axisSocialAmount(p.amount),axisCashDateKey(p.date),String(p.note||'')])});
+  entries.sort();return JSON.stringify(entries);
+}
 let socialItems=[],socialPayments=[],socialStage=0;
 let editingSocialIndex=null;
 const AXIS_SOCIAL_STAGES=["چاپ مدل","اسمبل کردن مدل","رنگ آمیزی مدل","آماده سازی برای ارسال","ارسال محصول"];function axisSocialStageIndex(value){
@@ -1542,9 +2162,9 @@ function saveSocialTrackingCode(){
   try{showNotification('کد پیگیری با موفقیت ثبت شد ✔',true)}catch(e){}
 }
 function showSocialPortfolio(index){const orders=JSON.parse(localStorage.getItem("axisSocialOrders")||"[]"),o=orders[index];if(!o)return;editingSocialIndex=index;document.getElementById("socialWorkspace").style.display="none";document.getElementById("socialOrdersWorkspace").style.display="none";document.getElementById("socialCustomersWorkspace").style.display="none";document.getElementById("socialPortfolioWorkspace").style.display="block";document.getElementById("socialPortfolioTitle").textContent="پرتفوی سفارش "+o.id;document.getElementById("socialPortfolioRecipient").textContent=`${o.recipient||"—"} | ${o.phone||"—"} | ${o.source||""}`;const metrics=axisSocialOrderMetrics(o),revenue=metrics.products,mat=metrics.material,shipping=metrics.shipping,total=revenue+shipping,paid=axisSocialRecordedPaid(o);document.getElementById("spProductTotal").textContent=fmt(revenue)+" تومان";document.getElementById("spShipping").textContent=fmt(shipping)+" تومان";document.getElementById("spTotal").textContent=fmt(total)+" تومان";document.getElementById("spMaterial").textContent=fmt(mat)+" تومان";document.getElementById("spPaid").textContent=fmt(paid)+" تومان";document.getElementById("spRemain").textContent=fmt(Math.max(0,total-paid))+" تومان";document.getElementById("socialPortfolioRows").innerHTML=(o.items||[]).map(x=>`<tr><td>${escapeHtml(x.code)}</td><td>${escapeHtml(x.name)}${x.qualityLabel?`<div class="muted" style="font-size:11px;margin-top:3px">${escapeHtml(x.qualityLabel)}</div>`:""}</td><td>${fmt(x.qty)}</td><td>${fmt(x.revenue)} تومان</td></tr>`).join("");renderSocialPortfolioStage(o);window.scrollTo({top:0,behavior:"smooth"})}
-function editSocialOrder(){const orders=JSON.parse(localStorage.getItem("axisSocialOrders")||"[]"),o=orders[editingSocialIndex];if(!o)return;document.getElementById("socialPortfolioWorkspace").style.display="none";document.getElementById("socialOrdersWorkspace").style.display="none";document.getElementById("socialCustomersWorkspace").style.display="none";document.getElementById("socialNewWorkspace").style.display="block";document.getElementById("socialFormMount").appendChild(document.getElementById("socialFormPanel"));socialItems=(o.items||[]).map(x=>({...x}));socialPayments=axisSocialPaymentEntries(o).map(function(x){return Object.assign({},x)});document.getElementById("socialPayment").value="";socialStage=Number(o.stage||0);renderSocialStageBox();document.getElementById("socialSource").value=o.source||"تلگرام";document.getElementById("socialRecipient").value=o.recipient||"";document.getElementById("socialId").value=o.username||"";document.getElementById("socialPhone").value=o.phone||"";document.getElementById("socialAddress").value=o.address||"";document.getElementById("socialPostalCode").value=o.postalCode||"";document.getElementById("socialShipping").value=o.shipping||"";document.getElementById("socialShippingMethod").value=o.shippingMethod||"";document.getElementById("socialTrackingCode").value=o.trackingCode||"";document.getElementById("socialQuality").value=(o.quality||(o.items&&o.items[0]&&o.items[0].quality)||"0.2");document.getElementById("socialFormPanel").classList.add("open");renderSocialItems();renderSocialPayments();renderSocialPortfolio()}
-function backToSocialList(){document.getElementById("socialPortfolioWorkspace").style.display="none";document.getElementById("socialNewWorkspace").style.display="none";document.getElementById("socialOrdersWorkspace").style.display="none";document.getElementById("socialCustomersWorkspace").style.display="none";document.getElementById("socialFormHome").appendChild(document.getElementById("socialFormPanel"));document.getElementById("socialFormPanel").classList.remove("open");document.getElementById("socialNewWorkspace").style.display="none";document.getElementById("socialWorkspace").style.display="block";renderSocialOrders();renderSocialCustomers();renderSocialOverview();window.scrollTo({top:0,behavior:"smooth"})}
-function startSocialOrder(){editingSocialIndex=null;document.getElementById("socialWorkspace").style.display="none";document.getElementById("socialPortfolioWorkspace").style.display="none";document.getElementById("socialOrdersWorkspace").style.display="none";document.getElementById("socialCustomersWorkspace").style.display="none";document.getElementById("socialNewWorkspace").style.display="block";document.getElementById("socialFormMount").appendChild(document.getElementById("socialFormPanel"));socialItems=[];socialPayments=[];socialStage=0;["socialCustomerSelect","socialRecipient","socialId","socialPhone","socialAddress","socialPostalCode","socialShipping","socialShippingMethod","socialPayment","socialTrackingCode","socialUnitPrice"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});document.getElementById("socialQuality").value="0.2";fillSocialCustomerSelect();document.getElementById("socialFormPanel").classList.add("open");renderSocialItems();renderSocialPayments();renderSocialPortfolio();document.getElementById("socialFormPanel").scrollIntoView({behavior:"smooth",block:"start"})}
+function editSocialOrder(){const orders=JSON.parse(localStorage.getItem("axisSocialOrders")||"[]"),o=orders[editingSocialIndex];if(!o)return;document.getElementById("socialPortfolioWorkspace").style.display="none";document.getElementById("socialOrdersWorkspace").style.display="none";document.getElementById("socialCustomersWorkspace").style.display="none";document.getElementById("socialNewWorkspace").style.display="block";document.getElementById("socialFormMount").appendChild(document.getElementById("socialFormPanel"));socialItems=(o.items||[]).map(x=>({...x}));socialPayments=axisSocialPaymentEntries(o).map(function(x){return Object.assign({},x)});axisSocialEditPaymentSnapshot=axisSocialPaymentSignature(o);axisSocialEditOrderId=String(o.id||'');document.getElementById("socialPayment").value="";socialStage=Number(o.stage||0);renderSocialStageBox();document.getElementById("socialSource").value=o.source||"تلگرام";document.getElementById("socialRecipient").value=o.recipient||"";document.getElementById("socialId").value=o.username||"";document.getElementById("socialPhone").value=o.phone||"";document.getElementById("socialAddress").value=o.address||"";document.getElementById("socialPostalCode").value=o.postalCode||"";document.getElementById("socialShipping").value=o.shipping||"";document.getElementById("socialShippingMethod").value=o.shippingMethod||"";document.getElementById("socialTrackingCode").value=o.trackingCode||"";document.getElementById("socialQuality").value=(o.quality||(o.items&&o.items[0]&&o.items[0].quality)||"0.2");document.getElementById("socialFormPanel").classList.add("open");renderSocialItems();renderSocialPayments();renderSocialPortfolio()}
+function backToSocialList(){axisSocialEditPaymentSnapshot=null;axisSocialEditOrderId=null;document.getElementById("socialPortfolioWorkspace").style.display="none";document.getElementById("socialNewWorkspace").style.display="none";document.getElementById("socialOrdersWorkspace").style.display="none";document.getElementById("socialCustomersWorkspace").style.display="none";document.getElementById("socialFormHome").appendChild(document.getElementById("socialFormPanel"));document.getElementById("socialFormPanel").classList.remove("open");document.getElementById("socialNewWorkspace").style.display="none";document.getElementById("socialWorkspace").style.display="block";renderSocialOrders();renderSocialCustomers();renderSocialOverview();window.scrollTo({top:0,behavior:"smooth"})}
+function startSocialOrder(){axisSocialEditPaymentSnapshot=null;axisSocialEditOrderId=null;editingSocialIndex=null;document.getElementById("socialWorkspace").style.display="none";document.getElementById("socialPortfolioWorkspace").style.display="none";document.getElementById("socialOrdersWorkspace").style.display="none";document.getElementById("socialCustomersWorkspace").style.display="none";document.getElementById("socialNewWorkspace").style.display="block";document.getElementById("socialFormMount").appendChild(document.getElementById("socialFormPanel"));socialItems=[];socialPayments=[];socialStage=0;["socialCustomerSelect","socialRecipient","socialId","socialPhone","socialAddress","socialPostalCode","socialShipping","socialShippingMethod","socialPayment","socialTrackingCode","socialUnitPrice"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});document.getElementById("socialQuality").value="0.2";fillSocialCustomerSelect();document.getElementById("socialFormPanel").classList.add("open");renderSocialItems();renderSocialPayments();renderSocialPortfolio();document.getElementById("socialFormPanel").scrollIntoView({behavior:"smooth",block:"start"})}
 function socialCustomers(){return JSON.parse(localStorage.getItem("axisSocialCustomers")||"[]")}
 let editingSocialCustomerIndex=null,socialCustomerEditEsc=null;
 function editSocialCustomer(i){
@@ -1696,13 +2316,13 @@ function saveQuickProduct(){
 }
 function addSocialProduct(){const p=products[Number(document.getElementById("socialProduct").value)],qty=Math.max(1,Number(document.getElementById("socialQty").value)||1);if(!p)return;const q=getSocialQuality(),unitPrice=faNumber(document.getElementById("socialUnitPrice").value)||axisOrderDefaultPrice(p,"تکی",q),costs=axisProductPriceSnapshot(p,q),materialCost=(costs.matTotal+costs.cons)*qty;socialItems.push({code:p.code,name:p.name,qty,unitPrice,materialCost,revenue:unitPrice*qty,quality:q,qualityLabel:axisQualityLabel(q)});document.getElementById("socialUnitPrice").value="";renderSocialItems()}
 function removeSocialItem(index){if(!confirm("این محصول از سفارش سوشال مدیا حذف شود؟"))return;socialItems.splice(index,1);renderSocialItems()}
-function deleteSocialOrder(index){if(!confirm("این سفارش سوشال مدیا به‌طور کامل حذف شود؟"))return;const list=JSON.parse(localStorage.getItem("axisSocialOrders")||"[]");list.splice(index,1);localStorage.setItem("axisSocialOrders",JSON.stringify(list));syncCloudBackup(true);setSystemStatus("saveDot",true,"ذخیره و بروزرسانی اطلاعات: سفارش سوشال مدیا حذف شد");renderSocialOrders()}
+function deleteSocialOrder(index){if(!axisCashConfirmRemoval("این سفارش سوشال مدیا به‌طور کامل حذف شود؟",'social-order',index))return;const list=JSON.parse(localStorage.getItem("axisSocialOrders")||"[]");list.splice(index,1);localStorage.setItem("axisSocialOrders",JSON.stringify(list));syncCloudBackup(true);setSystemStatus("saveDot",true,"ذخیره و بروزرسانی اطلاعات: سفارش سوشال مدیا حذف شد");renderSocialOrders()}
 function renderSocialItems(){const body=document.getElementById("socialItems");if(!body)return;body.innerHTML=socialItems.length?socialItems.map((x,i)=>`<tr><td>${escapeHtml(x.code)}</td><td>${escapeHtml(x.name)}${x.qualityLabel?`<div class="muted" style="font-size:11px;margin-top:3px">${escapeHtml(x.qualityLabel)}</div>`:""}</td><td>${fmt(x.qty)}</td><td>${fmt(x.unitPrice)} تومان</td><td>${fmt(x.revenue)} تومان</td><td><button class="dark" onclick="removeSocialItem(${i})">×</button></td></tr>`).join(""):'<tr><td colspan="6" class="empty-cart">محصولی اضافه نشده است.</td></tr>';renderSocialPortfolio()}
 function renderSocialPortfolio(){const revenue=socialItems.reduce((n,x)=>n+Number(x.revenue||0),0),material=socialItems.reduce((n,x)=>n+Number(x.materialCost||0),0),shipping=faNumber(document.getElementById("socialShipping")?.value),payment=socialPayments.reduce((n,p)=>n+Number(p.amount||0),0)+faNumber(document.getElementById("socialPayment")?.value),total=revenue+shipping;const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=fmt(v)+" تومان"};set("socialRevenue",revenue);set("socialMaterial",material);set("socialShippingOut",shipping);set("socialProfit",revenue-material);set("socialRemaining",Math.max(0,total-payment))}
 function addSocialPayment(){
   const input=document.getElementById('socialPayment'),amount=faNumber(input?input.value:'');
-  if(amount<=0){alert('مبلغ پرداختی معتبر را وارد کنید.');return}
-  socialPayments.push({amount:amount,date:new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())});
+  if(!Number.isFinite(amount)||amount<=0||amount>Number.MAX_SAFE_INTEGER){alert('مبلغ پرداختی معتبر را وارد کنید.');return}
+  socialPayments.push({id:axisCashUniqueId('AXP'),amount:amount,date:new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())});
   if(input)input.value='';renderSocialPayments();renderSocialPortfolio();
 }
 function renderSocialPayments(){const el=document.getElementById("socialPaymentsList");if(el)el.innerHTML=socialPayments.length?"پرداختی‌ها: "+socialPayments.map(p=>fmt(p.amount)+" تومان").join(" | "):"پرداختی ثبت نشده است."}
@@ -1713,11 +2333,13 @@ function saveSocialOrder(){
   if(!Array.isArray(list)){alert('اطلاعات سفارش‌ها قابل خواندن نیست.');return}
   const wasEditing=editingSocialIndex!==null&&editingSocialIndex!==undefined,old=wasEditing?list[editingSocialIndex]:null;
   if(wasEditing&&!old){alert('سفارش سوشال پیدا نشد.');return}
+  if(wasEditing&&axisSocialEditOrderId!==null&&String(old.id||'')!==axisSocialEditOrderId){alert('فهرست سفارش‌ها تغییر کرده است. برای جلوگیری از تغییر اشتباه، سفارش را دوباره باز کنید.');return}
+  if(wasEditing&&axisSocialEditPaymentSnapshot!==null&&axisSocialPaymentSignature(old)!==axisSocialEditPaymentSnapshot){alert('پرداخت‌های این سفارش در جای دیگری تغییر کرده‌اند. برای جلوگیری از حذف اطلاعات، سفارش را دوباره باز کنید.');return}
   const today=new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
   const payments=(Array.isArray(socialPayments)?socialPayments:[]).map(function(p){const x=Object.assign({},p);delete x._axisLegacy;delete x._axisDateFallback;return x});
   const pendingInput=document.getElementById('socialPayment'),pending=faNumber(pendingInput?pendingInput.value:'');
-  if(pending<0){alert('مبلغ پرداختی معتبر را وارد کنید.');return}
-  if(pending>0)payments.push({amount:pending,date:today});
+  if(!Number.isFinite(pending)||pending<0||pending>Number.MAX_SAFE_INTEGER){alert('مبلغ پرداختی معتبر را وارد کنید.');return}
+  if(pending>0)payments.push({id:axisCashUniqueId('AXP'),amount:pending,date:today});
   const order=Object.assign({},old||{}, {
     id:old?old.id:axisNextOrderCode(),date:old&&old.date?old.date:today,
     source:document.getElementById('socialSource').value,recipient:document.getElementById('socialRecipient').value,
@@ -1741,6 +2363,10 @@ function saveSocialOrder(){
 
 let socialReceiptDataUrl=null,socialReceiptOrderId=null,socialReceiptEsc=null;
 function socialReceiptLogo(){const img=document.querySelector('.dashboard-logo img');return (img&&img.src)?img.src:''}
+function axisBrandLogoMarkup(width){
+  const src=socialReceiptLogo(),w=Math.max(1,Math.min(1000,Number(width)||150));
+  return src?'<img src="'+axisEsc(src)+'" alt="لوگوی اکسیس" style="display:block;width:'+w+'px;max-width:100%;height:auto">':'<b style="font-weight:900;color:#ff7900">AXIS</b>';
+}
 function buildSocialReceiptCard(order){
   const items=Array.isArray(order.items)?order.items:[];
   const revenue=items.reduce(function(n,x){return n+Number(x.revenue||0)},0);
@@ -1752,8 +2378,7 @@ function buildSocialReceiptCard(order){
   const dateStr=order.date||new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
   let timeStr='';
   try{timeStr=new Intl.DateTimeFormat('fa-IR',{hour:'2-digit',minute:'2-digit'}).format(now)}catch(e){timeStr=String(now.toTimeString()).slice(0,5)}
-  const logo=socialReceiptLogo();
-  const logoHtml=logo?'<img src="'+logo+'" style="width:120px;height:120px;object-fit:contain">':'<div style="font-size:64px;font-weight:900;color:#ff7900">AXIS</div>';
+  const logoHtml=axisBrandLogoMarkup(240);
   const itemRows=items.length?items.map(function(x){
     return '<div style="display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 0;border-bottom:1px solid #ffffff14">'
       +'<div style="text-align:right"><b style="font-size:26px">'+escapeHtml(x.name||x.code)+'</b>'+(x.qualityLabel?'<div style="font-size:18px;color:#ff9d48;margin-top:4px">'+escapeHtml(x.qualityLabel)+'</div>':'')+'<div style="font-size:18px;color:#9aa3b1;margin-top:4px">تعداد: '+fmt(x.qty)+'</div></div>'
@@ -1763,7 +2388,7 @@ function buildSocialReceiptCard(order){
   card.id='socialReceiptCard';
   card.style.cssText='position:fixed;left:-20000px;top:0;width:1080px;height:1920px;box-sizing:border-box;direction:rtl;text-align:right;font-family:"Vazirmatn","IRANSansX",Tahoma,Arial,sans-serif;background:radial-gradient(1200px 800px at 85% -10%,#ff79001f,#0d1117 55%),#0d1117;color:#f5f7fa;padding:70px 64px';
   card.innerHTML=
-    +'<div><div style="display:flex;align-items:center">'+logoHtml+'</div><div style="font-size:24px;color:#9aa3b1;margin-top:10px">سیستم مدیریت سفارش‌های پرینت سه‌بعدی</div></div>'
+    '<div><div style="display:flex;align-items:center">'+logoHtml+'</div><div style="font-size:24px;color:#9aa3b1;margin-top:10px">سیستم مدیریت سفارش‌های پرینت سه‌بعدی</div></div>'
     +'<div style="margin-top:44px;background:#ffffff0d;border:1px solid #ffffff1f;border-radius:24px;padding:30px 34px;display:flex;align-items:center;justify-content:space-between">'
     +'<div><div style="font-size:22px;color:#9aa3b1">کد سفارش</div><div style="font-size:44px;font-weight:900;color:#ff7900;direction:ltr;display:inline-block">'+escapeHtml(order.id||'')+'</div></div>'
     +'<div style="text-align:left"><div style="font-size:22px;color:#9aa3b1">تاریخ و زمان ثبت</div><div style="font-size:26px;font-weight:700">'+escapeHtml(dateStr)+'</div><div style="font-size:22px;color:#9aa3b1;margin-top:4px">'+escapeHtml(timeStr)+'</div></div></div>'
@@ -1792,9 +2417,10 @@ function openSocialOrderReceiptByIndex(index){
 }
 async function showSocialOrderReceipt(order){
   if(!order)return;
+  let card=null;
   try{
     closeSocialReceipt();
-    const card=buildSocialReceiptCard(order);
+    card=buildSocialReceiptCard(order);
     document.body.appendChild(card);
     await loadHtml2Canvas();
     const canvas=await html2canvas(card,{scale:2,backgroundColor:'#0d1117',useCORS:true,logging:false});
@@ -1809,7 +2435,7 @@ async function showSocialOrderReceipt(order){
   }catch(e){
     try{closeSocialReceipt()}catch(e2){}
     alert('سفارش '+((order&&order.id)||'')+' با موفقیت ثبت شد.');
-  }
+  }finally{if(card)card.remove()}
 }
 function downloadSocialReceipt(){
   if(!socialReceiptDataUrl)return;
@@ -2358,11 +2984,29 @@ try{axisDedupeActivityLog()}catch(e){}
 /* ================= AXIS Customer Statement & History Sheet ================= */
 let axisStmtEsc = null;
 
+function axisPrepareBrandDocumentPrint(){
+  const body=document.body;if(!body)return;
+  body.classList.remove('printing-invoice','printing-operator');
+  if(body.classList.contains('printing-postal')){body.classList.remove('printing-statement');return}
+  const statement=document.getElementById('customerStatementModal');
+  if(statement&&statement.style.display==='flex'){body.classList.add('printing-statement');return}
+  body.classList.remove('printing-statement');
+  const workspace=document.getElementById('orderWorkspace');
+  if(!workspace||workspace.style.display!=='block')return;
+  const invoice=document.getElementById('invoicePanel'),operator=document.getElementById('operatorPanel');
+  if(invoice&&invoice.classList.contains('open'))body.classList.add('printing-invoice');
+  else if(operator&&operator.classList.contains('open'))body.classList.add('printing-operator');
+}
+function axisFinishBrandDocumentPrint(){if(document.body)document.body.classList.remove('printing-invoice','printing-operator')}
+window.addEventListener('beforeprint',axisPrepareBrandDocumentPrint);
+window.addEventListener('afterprint',axisFinishBrandDocumentPrint);
+
 function openCustomerStatementModal() {
   closeCustomerStatementModal();
   const modal = document.getElementById('customerStatementModal');
   if (!modal) return;
   modal.style.display = 'flex';
+  document.body.classList.add('printing-statement');
   renderCustomerStatementSheet();
   axisStmtEsc = function(e) { if (e.key === 'Escape') closeCustomerStatementModal(); };
   document.addEventListener('keydown', axisStmtEsc);
@@ -2371,6 +3015,7 @@ function openCustomerStatementModal() {
 function closeCustomerStatementModal() {
   const modal = document.getElementById('customerStatementModal');
   if (modal) modal.style.display = 'none';
+  document.body.classList.remove('printing-statement');
   if (axisStmtEsc) {
     document.removeEventListener('keydown', axisStmtEsc);
     axisStmtEsc = null;
@@ -2484,6 +3129,7 @@ function renderCustomerStatementSheet() {
       <!-- Sheet Header -->
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #ff7900;padding-bottom:16px;margin-bottom:20px">
         <div>
+          ${axisBrandLogoMarkup(150)}
           
           <div style="font-size:11.5px;color:#64748b;margin-top:6px;font-weight:700">صورت‌حساب و تاریخچه سفارش‌ها و واریزی‌های مشتری</div>
         </div>
@@ -2651,7 +3297,7 @@ async function downloadCustomerStatementImage() {
 .ax-note{margin-top:10px;text-align:center;color:#8fa2b6;font-size:11px;line-height:1.8}`;
   const style=document.createElement('style');style.textContent=css;document.head.appendChild(style);
   const el=document.createElement('div');el.id='authOverlay';el.className='ax-overlay';
-  el.innerHTML=`<div class="ax-orb o1"></div><div class="ax-orb o2"></div><div class="ax-grid"></div><div class="ax-card"><div class="ax-tag">سیستم مدیریت سفارش پرینت سه‌بعدی</div><h2 id="authTitle">ورود به سیستم</h2><p class="ax-desc" id="authDescription">نام کاربری خود را وارد کنید؛ اگر اولین ورود شماست، بعد از ورود رمز عبور تعیین می‌کنید.</p><div class="ax-field"><label>نام کاربری</label><input id="authUsername" autocomplete="username" placeholder="username"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.7-5.2 7-5.2s6.2 1.6 7 5.2"/></svg></div><div class="ax-field" id="authPassWrap" style="display:none"><label>رمز عبور</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="••••••••"><svg id="authLockIcon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><button type="button" class="ax-eye" id="authTogglePass" title="نمایش رمز"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg></button></div><div class="ax-field ax-confirm" id="authConfirmWrap"><label id="authConfirmLabel">تکرار رمز عبور</label><input id="authConfirm" type="password"></div><button class="ax-main" id="authSubmit">ورود</button><div class="ax-error" id="authError"></div><div class="ax-links"><span class="ax-link" id="authResetLink">بازنشانی این مرورگر</span><span class="ax-dot">·</span><span class="ax-link" id="authBootstrapLink" style="display:none">راه‌اندازی اولیه سیستم</span></div><div class="ax-foot"><span>AXIS ORDER SYSTEM</span><span class="ax-ver" id="authVersion">v.1.2.98</span></div></div>`;
+  el.innerHTML=`<div class="ax-orb o1"></div><div class="ax-orb o2"></div><div class="ax-grid"></div><div class="ax-card"><div class="ax-tag">سیستم مدیریت سفارش پرینت سه‌بعدی</div><h2 id="authTitle">ورود به سیستم</h2><p class="ax-desc" id="authDescription">نام کاربری خود را وارد کنید؛ اگر اولین ورود شماست، بعد از ورود رمز عبور تعیین می‌کنید.</p><div class="ax-field"><label>نام کاربری</label><input id="authUsername" autocomplete="username" placeholder="username"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.7-5.2 7-5.2s6.2 1.6 7 5.2"/></svg></div><div class="ax-field" id="authPassWrap" style="display:none"><label>رمز عبور</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="••••••••"><svg id="authLockIcon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><button type="button" class="ax-eye" id="authTogglePass" title="نمایش رمز"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg></button></div><div class="ax-field ax-confirm" id="authConfirmWrap"><label id="authConfirmLabel">تکرار رمز عبور</label><input id="authConfirm" type="password"></div><button class="ax-main" id="authSubmit">ورود</button><div class="ax-error" id="authError"></div><div class="ax-links"><span class="ax-link" id="authResetLink">بازنشانی این مرورگر</span><span class="ax-dot">·</span><span class="ax-link" id="authBootstrapLink" style="display:none">راه‌اندازی اولیه سیستم</span></div><div class="ax-foot"><span>AXIS ORDER SYSTEM</span><span class="ax-ver" id="authVersion">v.1.2.103</span></div></div>`;
   document.body.appendChild(el);
   let bootstrapActive=false,busy=false;
   const $=id=>document.getElementById(id);
@@ -2763,4 +3409,4 @@ setTimeout(bootApplication,300);
 
 
 
-</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a528a4b8f8d0f49b',t:'MTc5MzM0NDY3OQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a528a4b8f8d0f49b',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>
+</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5295a763a9d5c8d',t:'MTc5MzM1MjEyMw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5295a763a9d5c8d',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body></html>
