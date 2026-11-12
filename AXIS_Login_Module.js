@@ -41,7 +41,7 @@
 .ax-note{margin-top:10px;text-align:center;color:#8fa2b6;font-size:11px;line-height:1.8}`;
   const style=document.createElement('style');style.textContent=css;document.head.appendChild(style);
   const el=document.createElement('div');el.id='authOverlay';el.className='ax-overlay';
-  el.innerHTML=`<div class="ax-orb o1"></div><div class="ax-orb o2"></div><div class="ax-grid"></div><div class="ax-card"><div class="ax-tag">سیستم مدیریت سفارش پرینت سه‌بعدی</div><h2 id="authTitle">ورود به سیستم</h2><p class="ax-desc" id="authDescription">نام کاربری خود را وارد کنید؛ اگر اولین ورود شماست، بعد از ورود رمز عبور تعیین می‌کنید.</p><div class="ax-field"><label>نام کاربری</label><input id="authUsername" autocomplete="username" placeholder="username"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.7-5.2 7-5.2s6.2 1.6 7 5.2"/></svg></div><div class="ax-field" id="authPassWrap" style="display:none"><label>رمز عبور</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="••••••••"><svg id="authLockIcon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><button type="button" class="ax-eye" id="authTogglePass" title="نمایش رمز"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg></button></div><div class="ax-field ax-confirm" id="authConfirmWrap"><label id="authConfirmLabel">تکرار رمز عبور</label><input id="authConfirm" type="password"></div><button class="ax-main" id="authSubmit">ورود</button><div class="ax-error" id="authError"></div><div class="ax-links"><span class="ax-link" id="authResetLink">بازنشانی این مرورگر</span><span class="ax-dot">·</span><span class="ax-link" id="authBootstrapLink" style="display:none">راه‌اندازی اولیه سیستم</span></div><div class="ax-foot"><span>AXIS ORDER SYSTEM</span><span class="ax-ver" id="authVersion">v.1.2.103</span></div></div>`;
+  el.innerHTML=`<div class="ax-orb o1"></div><div class="ax-orb o2"></div><div class="ax-grid"></div><div class="ax-card"><div class="ax-tag">سیستم مدیریت سفارش پرینت سه‌بعدی</div><h2 id="authTitle">ورود به سیستم</h2><p class="ax-desc" id="authDescription">نام کاربری خود را وارد کنید؛ اگر اولین ورود شماست، بعد از ورود رمز عبور تعیین می‌کنید.</p><div class="ax-field"><label>نام کاربری</label><input id="authUsername" autocomplete="username" placeholder="username"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.7-5.2 7-5.2s6.2 1.6 7 5.2"/></svg></div><div class="ax-field" id="authPassWrap" style="display:none"><label>رمز عبور</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="••••••••"><svg id="authLockIcon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><button type="button" class="ax-eye" id="authTogglePass" title="نمایش رمز"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg></button></div><div class="ax-field ax-confirm" id="authConfirmWrap"><label id="authConfirmLabel">تکرار رمز عبور</label><input id="authConfirm" type="password"></div><button class="ax-main" id="authSubmit">ورود</button><div class="ax-error" id="authError"></div><div class="ax-links"><span class="ax-link" id="authResetLink">بازنشانی این مرورگر</span><span class="ax-dot">·</span><span class="ax-link" id="authBootstrapLink" style="display:none">راه‌اندازی اولیه سیستم</span></div><div class="ax-foot"><span>AXIS ORDER SYSTEM</span><span class="ax-ver" id="authVersion">v.1.2.106</span></div></div>`;
   document.body.appendChild(el);
   let bootstrapActive=false,busy=false;
   const $=id=>document.getElementById(id);
@@ -77,8 +77,10 @@ function readUsers(){let users=[];try{users=JSON.parse(localStorage.getItem('axi
       rec.passwordHash=hp;
       const all=readUsers();const ix=all.findIndex(u=>String(u.username).toLowerCase()===String(rec.username).toLowerCase());if(ix>-1){all[ix].passwordHash=hp;saveUsers(all)}
       localStorage.setItem('axisAuthUser',JSON.stringify(rec));
-      try{if(typeof axisCloudPush==='function'){axisCloudPush('saveUser',rec);if(typeof axisDirtySet==='function')axisDirtySet('users',(typeof axisNormUser==='function'?axisNormUser(rec.username):String(rec.username).toLowerCase()));if(typeof axisCloudFlush==='function')axisCloudFlush()}}catch(e){}
-      ov.remove();
+      let marketingSync=null;
+      try{if(typeof axisCloudPush==='function'){axisCloudPush('saveUser',rec);if(typeof axisDirtySet==='function')axisDirtySet('users',(typeof axisNormUser==='function'?axisNormUser(rec.username):String(rec.username).toLowerCase()));if(typeof axisCloudFlush==='function')marketingSync=axisCloudFlush()}}catch(e){}
+      try{if(typeof axisMarketingPrepareLogin==='function')axisMarketingPrepareLogin(rec.username,p1,marketingSync)}catch(e){}
+      $('spPass1').value='';$('spPass2').value='';ov.remove();
       try{if(typeof showNotification==='function')showNotification('رمز عبور شما ثبت شد؛ از ورود بعدی با همین رمز وارد شوید.',true)}catch(e){}
     };
     $('spSubmit').onclick=submit;
@@ -114,7 +116,11 @@ function readUsers(){let users=[];try{users=JSON.parse(localStorage.getItem('axi
       if(bp!==cEl.value){setError('تکرار رمز عبور یکسان نیست.');return}
       setBusy(true,'در حال ایجاد حساب');
       const rec={username:u,role:'admin',passwordHash:await hash(bp),createdAt:new Date().toISOString()};
-      saveUsers([rec]);granted(rec);setBusy(false);return;
+      saveUsers([rec]);granted(rec);
+      let marketingSync=null;
+      try{if(typeof axisCloudPush==='function'){if(typeof axisDirtySet==='function')axisDirtySet('users',(typeof axisNormUser==='function'?axisNormUser(rec.username):String(rec.username).toLowerCase()));axisCloudPush('saveUser',rec);if(typeof axisCloudFlush==='function')marketingSync=axisCloudFlush()}}catch(e){}
+      try{if(typeof axisMarketingPrepareLogin==='function')axisMarketingPrepareLogin(rec.username,bp,marketingSync)}catch(e){}
+      pEl.value='';cEl.value='';setBusy(false);afterLoginSync();return;
     }
     setBusy(true,'در حال ورود');
     let users=readUsers();
@@ -128,7 +134,9 @@ function readUsers(){let users=[];try{users=JSON.parse(localStorage.getItem('axi
       if(!p){setBusy(false);setError('این حساب رمز عبور دارد؛ رمز عبور را وارد کنید.');return}
       const hp=await hash(p);
       if(hp!==rec.passwordHash){setBusy(false);setError('رمز عبور نادرست است.');return}
-      ensureLocal();granted(rec);setBusy(false);afterLoginSync();return;
+      ensureLocal();granted(rec);
+      try{if(typeof axisMarketingPrepareLogin==='function')axisMarketingPrepareLogin(rec.username,p)}catch(e){}
+      pEl.value='';setBusy(false);afterLoginSync();return;
     }
     ensureLocal();granted(rec);setBusy(false);
     showSetPassPopup(rec);
@@ -136,6 +144,7 @@ function readUsers(){let users=[];try{users=JSON.parse(localStorage.getItem('axi
   }
   function doReset(){
     if(!confirm('هشدار!\n\nحساب‌های ورود ذخیره‌شده در این مرورگر حذف می‌شوند.\n\nسفارش‌ها، مشتریان، محصولات و بکاپ ابری (Google Sheets) حذف نمی‌شوند.\n\nآیا مطمئن هستید؟'))return;
+    try{if(typeof axisMarketingForgetLogin==='function')axisMarketingForgetLogin(true)}catch(e){}
     localStorage.removeItem('axisAuthUser');localStorage.removeItem('axisUsers');localStorage.removeItem('axisSession');sessionStorage.removeItem('axisSession');location.reload();
   }
   $('authSubmit').onclick=submitLogin;
